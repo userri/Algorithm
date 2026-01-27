@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 class Main {
+    static ArrayList<Integer>[] graph;
+    static boolean[] visited;
+    static StringBuilder sb = new StringBuilder();
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -12,7 +16,6 @@ class Main {
         int M = Integer.parseInt(st.nextToken());
         int V = Integer.parseInt(st.nextToken());
 
-        ArrayList<Integer>[] graph;
         graph = new ArrayList[N + 1];
         for (int i = 1; i <= N; i++) {
             graph[i] = new ArrayList<>();
@@ -32,35 +35,35 @@ class Main {
             Collections.sort(graph[i]);
         }
 
-        boolean[] visited1 = new boolean[N + 1];
-        boolean[] visited2 = new boolean[N + 1];
-
-        dfs(graph, V, visited1);
-        System.out.println();
-        bfs(graph, V, visited2);
+        visited = new boolean[N + 1];
+        dfs(V);
+        sb.append("\n");
+        visited = new boolean[N + 1];
+        bfs(V);
+        System.out.println(sb);
 
     }
 
-    private static void dfs(ArrayList<Integer>[] graph, int v, boolean[] visited1) {
-        visited1[v] = true;
-        System.out.print(v + " ");
+    private static void dfs(int v) {
+        visited[v] = true;
+        sb.append(v).append(" ");
         for (int n : graph[v]) {
-            if (!visited1[n]) {
-                dfs(graph,n,visited1);
+            if (!visited[n]) {
+                dfs(n);
             }
         }
     }
 
-    private static void bfs(ArrayList<Integer>[] graph, int v, boolean[] visited2) {
+    private static void bfs(int v) {
         Queue<Integer> q = new LinkedList<>();
-        visited2[v] = true;
+        visited[v] = true;
         q.offer(v);
         while (!q.isEmpty()) {
             int n = q.poll();
-            System.out.print(n + " ");
+            sb.append(n).append(" ");
             for (int node : graph[n]) {
-                if (!visited2[node]) {
-                    visited2[node] = true;
+                if (!visited[node]) {
+                    visited[node] = true;
                     q.offer(node);
                 }
             }
