@@ -12,21 +12,24 @@ class Main {
         int M = Integer.parseInt(st.nextToken());
         int V = Integer.parseInt(st.nextToken());
 
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i <= N; i++) {
-            graph.add(new ArrayList<>());
+        ArrayList<Integer>[] graph;
+        graph = new ArrayList[N + 1];
+        for (int i = 1; i <= N; i++) {
+            graph[i] = new ArrayList<>();
         }
 
         for (int i = 0; i < M; i++) {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            graph.get(a).add(b);
-            graph.get(b).add(a);
+            graph[a].add(b);
+            graph[b].add(a);
+
         }
 
-        for (ArrayList<Integer> a : graph) {
-            Collections.sort(a);
+
+        for (int i = 1; i <= N; i++) {
+            Collections.sort(graph[i]);
         }
 
         boolean[] visited1 = new boolean[N + 1];
@@ -38,24 +41,24 @@ class Main {
 
     }
 
-    private static void dfs(ArrayList<ArrayList<Integer>> graph, int v, boolean[] visited1) {
+    private static void dfs(ArrayList<Integer>[] graph, int v, boolean[] visited1) {
         visited1[v] = true;
         System.out.print(v + " ");
-        for (int n : graph.get(v)) {
+        for (int n : graph[v]) {
             if (!visited1[n]) {
                 dfs(graph,n,visited1);
             }
         }
     }
 
-    private static void bfs(ArrayList<ArrayList<Integer>> graph, int v, boolean[] visited2) {
+    private static void bfs(ArrayList<Integer>[] graph, int v, boolean[] visited2) {
         Queue<Integer> q = new LinkedList<>();
         visited2[v] = true;
         q.offer(v);
         while (!q.isEmpty()) {
             int n = q.poll();
             System.out.print(n + " ");
-            for (int node : graph.get(n)) {
+            for (int node : graph[n]) {
                 if (!visited2[node]) {
                     visited2[node] = true;
                     q.offer(node);
@@ -63,6 +66,4 @@ class Main {
             }
         }
     }
-
-
 }
