@@ -5,16 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
-//1 1 1 1
-//        2 4 8 6 2주기 4
-//        3 9 7 1 3주기 4
-//        4 6 4 6주기 2
-//        5
-//        6
-//        7 9 3 1
-//        8 4 2 6
-//        9 1
-
 class Main {
     public static void main(String[] args) throws IOException {
 
@@ -22,7 +12,7 @@ class Main {
         StringTokenizer st;
         int[][] periods = new int[10][];
         periods[0] = new int[]{0};
-        periods[1] = new int[]{0};
+        periods[1] = new int[]{1};
         periods[2] = new int[]{2, 4, 8, 6};
         periods[3] = new int[]{3, 9, 7, 1};
         periods[4] = new int[]{4, 6};
