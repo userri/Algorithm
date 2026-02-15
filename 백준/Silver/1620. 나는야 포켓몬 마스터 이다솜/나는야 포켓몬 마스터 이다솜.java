@@ -9,21 +9,20 @@ class Main {
         String[] inputs  = br.readLine().split(" ");
         int N = Integer.parseInt(inputs[0]);
         int M = Integer.parseInt(inputs[1]);
-        Map<Integer, String> intMap = new HashMap<>();
-        Map<String, Integer> strMap = new HashMap<>();
+        String[] monster = new String[N+1];
+        Map<String, Integer> strMap = new HashMap<>(2*N);
         
         for (int i = 1; i <= N; i++) {
             String name = br.readLine();
-            intMap.put(i, name);
+            monster[i] = name;
             strMap.put(name, i);
-            
         }
         while (M-- > 0) {
             String question = br.readLine();
-            try {
+            if (Character.isDigit(question.charAt(0))) {
                 int num = Integer.parseInt(question);
-                sb.append(intMap.get(num)).append("\n");
-            } catch (Exception e) {
+                sb.append(monster[num]).append("\n");
+            } else {
                 sb.append(strMap.get(question)).append("\n");
             }
         }
