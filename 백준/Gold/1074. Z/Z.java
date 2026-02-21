@@ -5,10 +5,10 @@ class Main {
     static int N,r,c,cnt = 0;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String[] input = br.readLine().split(" ");
-        N = Integer.parseInt(input[0]);
-        r = Integer.parseInt(input[1]);
-        c = Integer.parseInt(input[2]);
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
         
         find(r,c,(int)Math.pow(2,N));
         System.out.println(cnt);
