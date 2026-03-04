@@ -3,62 +3,57 @@ import java.lang.*;
 import java.io.*;
 
 class Main {
-    public static void main(String[] args) throws IOException{
+    static int D(int x) {return x*2%10000;};
+    static int S(int x) {return x-1<0?9999:x-1;};
+    static int L(int x) {return (x*10)%10000 + x/1000;};
+    static int R(int x) {return (x%10)*1000+ x/10;};
+    
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
         int T = Integer.parseInt(br.readLine());
-        while (T-- > 0) {
+        while (T-->0) {
             st = new StringTokenizer(br.readLine());
-            int A = Integer.parseInt(st.nextToken());
-            int B = Integer.parseInt(st.nextToken());
-            
-            sb.append(bfs(A,B)).append("\n");
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            sb.append(bfs(a,b)).append("\n");
         }
         System.out.println(sb);
     }
-    static String bfs(int a, int b) {
-        Queue<Integer> queue = new LinkedList<>();
-        queue.offer(a);
-        Map<Integer, String> map = new HashMap<>();
-        map.put(a,"");
-        // 이미 map에 있는 숫자로는 더이상 가지 않아
-        while (!queue.isEmpty()) {
-            int cur = queue.poll();
-            if (cur == b) {
-                return map.get(cur);
-            }
-            // D
-            int d = (cur*2)%10000;
-            // map에 없어야지만 집어넣음
-            if (!map.keySet().contains(d)) {
-                // System.out.println(d + " D");
-                map.put(d, map.get(cur)+"D");
-                queue.offer(d);
-            }
-            // S
-            int s = cur-1<0?9999:cur-1;
-            if (!map.keySet().contains(s)) {
-                // System.out.println(s + " S");
-                map.put(s, map.get(cur)+"S");
-                queue.offer(s);
-            }
-            // L
-            // 천의자리수
-            int first = (int)(cur/1000);
-            int l = (cur*10)%10000+first;
-            if (!map.keySet().contains(l)) {
-                // System.out.println(l + " L");
-                map.put(l, map.get(cur)+"L");
-                queue.offer(l);
-            }
-            // R
-            int last = cur%10;
-            int r = cur/10 + last*1000;
-            if (!map.keySet().contains(r)) {
-                // System.out.println(r + " R");
-                map.put(r, map.get(cur)+"R");
-                queue.offer(r);
+    static String bfs(int start, int target) {
+        if (start == target) return "";
+        boolean[] visited = new boolean[10000];
+        int[] parent = new int[10000];
+        char[] how = new char[10000];
+        Deque<Integer> q = new ArrayDeque<>();
+        
+        q.offer(start);
+        visited[start] = true;
+        while (!q.isEmpty()) {
+            int cur = q.poll();
+            int[] nxt = {D(cur), S(cur), L(cur), R(cur)};
+            char[] op = {'D', 'S', 'L', 'R'};
+            for (int i = 0;i < 4 ;i ++ ) {
+                if (!visited[nxt[i]]) {
+                    visited[nxt[i]] = true;
+                    parent[nxt[i]] = cur;
+                    // nxt[i] 까지 도달하기 위한 마지막 연산
+                    how[nxt[i]] = op[i];
+
+                    // 숫자를 넣었을 때만 검사
+                    if (nxt[i] == target) {
+                        StringBuilder sb = new StringBuilder();
+                        int n = nxt[i];
+                        while (n != start) {
+                            sb.append(how[n]);
+                            n = parent[n];
+                        }
+                        return sb.reverse().toString();
+                    }
+                    // visit 안했던 숫자만 큐에 넣어야 함!
+                    q.offer(nxt[i]);
+                }
             }
         }
         return "";
