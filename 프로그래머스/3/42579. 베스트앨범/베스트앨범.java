@@ -1,42 +1,47 @@
 
 
 import java.util.*;
-import java.math.*;
-
-// 시작: 5:25~
 
 class Solution {
     public int[] solution(String[] genres, int[] plays) {
 
         // 장르, 재생수 총합
-        Map<String, Integer> mapG = new HashMap<>();
+        Map<String, Integer> genrePlaySum = new HashMap<>();
         // 장르, 고유번호와 재생수 맵을 담은 리스트
-        // ex. 액션 장르: {1: 300, 2, 400}
-        Map<String, Map<Integer, Integer>> mapP = new HashMap<>();
+        // genre와 [고유번호, 재생수] 쌍들을 담은 리스트를 map으로 저장
+        Map<String, List<int[]>> genreSongs = new HashMap<>();
 
-        int N = genres.length;
-        for (int i = 0; i < N; i++) {
-            mapG.put(genres[i], mapG.getOrDefault(genres[i], 0) + plays[i]);
-            mapP.put(genres[i], mapP.getOrDefault(genres[i], new HashMap<>()));
-            mapP.get(genres[i]).put(i, plays[i]);
+        for (int i = 0; i < genres.length; i++) {
+            genrePlaySum.put(genres[i], genrePlaySum.getOrDefault(genres[i], 0) + plays[i]);
+            genreSongs.putIfAbsent(genres[i], new ArrayList<>());
+            genreSongs.get(genres[i]).add(new int[]{i, plays[i]});
         }
+        // 장르 정렬
+        List<String> sortedGenres = new ArrayList<>(genrePlaySum.keySet());
+        sortedGenres.sort((o1, o2) -> genrePlaySum.get(o2) - genrePlaySum.get(o1));
 
-        List<String> genreKeySet = new ArrayList<>(mapG.keySet());
-        // 재생수 많은 순서대로 내림차순
-        genreKeySet.sort((o1, o2) -> mapG.get(o2) - mapG.get(o1));
+        List<Integer> resultList = new ArrayList<>();
 
-        List<Integer> list = new ArrayList<>();
+        for (String genre : sortedGenres) {
+            List<int[]> songs = genreSongs.get(genre);
 
-        for (String s : genreKeySet) {
-            List<Integer> identitySet = new ArrayList<>(mapP.get(s).keySet());
-            // 재생수 많은 순서대로 역순
-            identitySet.sort((o1, o2) -> mapP.get(s).get(o2) - mapP.get(s).get(o1));
-            for (int i = 0; i < Math.min(2, identitySet.size()); i++) {
-                list.add(identitySet.get(i));
+            // 장르 내 같은 노래 정렬( 재생수 내림차순, 같다면 ID 오름차순)
+            songs.sort((a, b) -> {
+                if (a[1] == b[1]) return a[0] - b[0]; // ID 오름차순
+                return b[1] - a[1];
+            });
+
+            for (int i = 0; i < Math.min(2, songs.size()); i++) {
+                resultList.add(songs.get(i)[0]);
             }
         }
 
-        return list.stream().mapToInt(Integer::intValue).toArray();
+        int[] answer = new int[resultList.size()];
+        for (int i = 0; i < resultList.size(); i++) {
+            answer[i] = resultList.get(i);
+        }
+        return answer;
+
     }
 
 }
