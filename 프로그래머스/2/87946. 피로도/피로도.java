@@ -28,8 +28,10 @@ class Solution {
         return maxCnt;
     }
     static void dfs(int N, int M, int depth) {
+        if(check) return;
         if(depth == M) {
             check = true;
+            return;
         }
         for(int i = 0; i< N;i++) {
             if(!visited[i] && k >= dungeons[i][0]) {
