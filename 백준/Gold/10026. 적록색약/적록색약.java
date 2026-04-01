@@ -5,7 +5,8 @@ import java.io.*;
 class Main {
     static int N;
     static String[][] pic;
-    static boolean[][] visited;
+    static boolean[][] visited1;
+    static boolean[][] visited2;
     // 상, 하, 좌, 우
     static int[] drow = {-1, 1, 0, 0};
     static int[] dcol = {0, 0, -1, 1};
@@ -13,7 +14,11 @@ class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         N = Integer.parseInt(br.readLine());
         pic = new String[N][N];
-        visited = new boolean[N][N];
+        
+        // 방문 그래프 초기화
+        visited1 = new boolean[N][N];
+        visited2 = new boolean[N][N];
+        
         int normalCnt = 0;
         int oddCnt = 0;
         
@@ -26,25 +31,17 @@ class Main {
                 if (normal(i,j) != -1) {
                     normalCnt++;
                 }
-            }
-        }
-        
-        // 방문 그래프 초기화
-        visited = new boolean[N][N];
-        
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j<N; j++) {
                 if (odd(i,j) != -1) {
                     oddCnt++;
                 }
             }
         }
-
+        
         System.out.println(normalCnt + " " + oddCnt);
     }
 
     static int normal(int row, int col) {
-        if (visited[row][col]) {
+        if (visited1[row][col]) {
             return -1;
         }
         // 방문한 지점을 기준으로 같은블록 체크
@@ -52,7 +49,7 @@ class Main {
         Queue<Point> queue = new LinkedList<>();
         Point s = new Point(row, col);
         queue.offer(s);
-        visited[row][col] = true;
+        visited1[row][col] = true;
         while (!queue.isEmpty()) {
             Point p = queue.poll();
             for (int i = 0; i<4; i++) {
@@ -62,12 +59,12 @@ class Main {
                     continue;
                 }
                 // 이미 방문했거나 기준점이랑 다르면 continue;
-                if (visited[nrow][ncol] || !pic[nrow][ncol].equals(start)) {
+                if (visited1[nrow][ncol] || !pic[nrow][ncol].equals(start)) {
                     continue;
                 }
                 Point q = new Point(nrow, ncol);
                 queue.offer(q);
-                visited[nrow][ncol] = true;
+                visited1[nrow][ncol] = true;
             }
         }
         return 0;
@@ -75,7 +72,7 @@ class Main {
 
     
     static int odd(int row, int col) {
-        if (visited[row][col]) {
+        if (visited2[row][col]) {
             return -1;
         }
         // 방문한 지점을 기준으로 같은블록 체크
@@ -83,7 +80,7 @@ class Main {
         Queue<Point> queue = new LinkedList<>();
         Point s = new Point(row, col);
         queue.offer(s);
-        visited[row][col] = true;
+        visited2[row][col] = true;
         while (!queue.isEmpty()) {
             Point p = queue.poll();
             for (int i = 0; i<4; i++) {
@@ -93,7 +90,7 @@ class Main {
                     continue;
                 }
                 // 이미 방문했거나 기준점이랑 다르면 continue;
-                if (visited[nrow][ncol]) {
+                if (visited2[nrow][ncol]) {
                     continue;
                 }
                 if (start.equals("R") || start.equals("G")) {
@@ -104,7 +101,7 @@ class Main {
                 
                 Point q = new Point(nrow, ncol);
                 queue.offer(q);
-                visited[nrow][ncol] = true;
+                visited2[nrow][ncol] = true;
             }
         }
         return 0;
