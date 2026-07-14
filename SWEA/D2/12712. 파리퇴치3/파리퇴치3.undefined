@@ -1,0 +1,56 @@
+import java.util.*;
+import java.io.*;
+
+class Solution
+{
+	public static void main(String args[]) throws Exception
+	{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        int T = Integer.parseInt(br.readLine());
+        // 상하좌우
+        int[][] plus = {{-1,0},{1,0},{0,-1},{0,1}};
+        // 왼위 오른위 왼아래 오른아래
+        int[][] cross = {{-1,-1},{-1,1},{1,-1},{1,1}};
+        
+        
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+            st = new StringTokenizer(br.readLine());
+            int N = Integer.parseInt(st.nextToken());
+            int M = Integer.parseInt(st.nextToken());
+
+            int[][] grid = new int[N][N];
+            for(int i = 0; i < N;i++) {
+            	st = new StringTokenizer(br.readLine());
+                for(int j = 0; j < N; j++) {
+               		grid[i][j] = Integer.parseInt(st.nextToken());
+                }
+            }
+            int result = 0;
+            for(int i = 0; i < N; i++) {
+                for(int j = 0; j < N; j++) {
+                    int plusSum = grid[i][j];
+                    int crossSum = grid[i][j];
+                    // 방향정의한 2차원 배열대로 깊이만큼 더해나감
+                    for(int k = 0; k < 4; k++) {
+                        for(int depth = 1; depth <= M-1; depth++) {
+                            // plus의 k번째 방향에서 0은 행방향, 1은 열방향 이동
+                            if(i + depth * plus[k][0] >= 0 && i + depth * plus[k][0] < N && j + depth * plus[k][1] >= 0 && j + depth * plus[k][1] < N) {
+                                plusSum += grid[i + depth*plus[k][0]][j + depth * plus[k][1]];
+                            }
+                            if(i + depth * cross[k][0] >= 0 && i + depth * cross[k][0] < N && j + depth * cross[k][1] >= 0 && j + depth * cross[k][1] < N) {
+                                crossSum += grid[i + depth*cross[k][0]][j + depth * cross[k][1]];
+                            }
+                        }
+                    }
+                    result = Math.max(result, plusSum);
+                    result = Math.max(result, crossSum);
+                }
+            }
+
+        
+            System.out.println("#" + test_case +" " + result);
+		}
+	}
+}
