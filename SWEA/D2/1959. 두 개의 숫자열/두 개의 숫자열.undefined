@@ -1,0 +1,56 @@
+import java.util.*;
+import java.io.*;
+
+class Solution
+{
+	public static void main(String args[]) throws Exception
+	{
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+		int T;
+		T=Integer.parseInt(br.readLine());
+        StringTokenizer st;
+        
+
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
+            st= new StringTokenizer(br.readLine());
+            int N=Integer.parseInt(st.nextToken());
+            int M=Integer.parseInt(st.nextToken());
+            int[] ai = new int[N];
+            int[] bi = new int[M];
+            st = new StringTokenizer(br.readLine());
+            for(int i = 0; i < N; i++) {
+                ai[i] = Integer.parseInt(st.nextToken());
+            }
+            st = new StringTokenizer(br.readLine());
+            for(int i = 0; i < M; i++) 
+                bi[i] = Integer.parseInt(st.nextToken());
+
+            int moveRange = Math.abs(N-M);
+            
+            int result = Integer.MIN_VALUE;
+            	// A의 길이가 더 작으면 B에서도 A개만 고르기
+            if(N <= M) {
+           		 for(int move = 0; move <= moveRange; move++) {
+                	int sum = 0;
+                    for(int i = 0; i < N; i++){
+                    	sum += ai[i] * bi[i + move];
+                    }
+                     result = Math.max(result, sum);
+                 }
+            } else {
+            	for(int move = 0; move <= moveRange; move++) {
+                	int sum = 0;
+                    for(int i = 0; i < M; i++) {
+                        sum += ai[i + move] * bi[i];
+                    }
+                    result = Math.max(result, sum);
+                }
+            }
+            
+            System.out.println("#"+test_case + " " + result);
+		}
+    }
+}
