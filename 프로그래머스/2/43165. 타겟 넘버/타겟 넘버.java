@@ -1,18 +1,30 @@
+/*
+구현전략
+백트래킹으로 더해서 들어갔다가 빼서 나왔다가 등등
+깊이가 찼을때 for문할까 아니면 파라미터로 sum을 넘길까
+ */
 class Solution {
-    int cnt = 0;
     int[] numbers;
+    int answer, N, target;
+    boolean[] visited;
     public int solution(int[] numbers, int target) {
         this.numbers = numbers;
-        dfs(numbers.length, 0,target, 0, 0);
-        return cnt;
+        this.N = numbers.length;
+        visited = new boolean[N];
+        this.target = target;
+
+        backtracking(0, 0);
+
+        return answer;
     }
-    public void dfs(int N, int depth, int target, int start, int sum) {
-        if(depth == N && sum == target) {
-            cnt++;
+    void backtracking(int depth, int sum) {
+        if(depth == N) {
+            if(sum == target) {
+                answer++;
+            }
+            return;
         }
-        for(int i = start;i < N;i++) {
-            dfs(N, depth+1, target, i+1, sum+numbers[i]);
-            dfs(N, depth+1, target, i+1, sum-numbers[i]);
-        }
+        backtracking(depth+1, sum + numbers[depth]);
+        backtracking(depth + 1, sum - numbers[depth]);
     }
 }
