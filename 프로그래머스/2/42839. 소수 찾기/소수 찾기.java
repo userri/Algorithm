@@ -1,53 +1,64 @@
-
 import java.util.*;
-// N과 M 참고
+/*
+구현전략
+소수판별을 위한 함수는 별도로
+종이조각으로 만든 수를 set으로 저장해(017=17)
+*/
 class Solution {
-    static StringBuilder sb = new StringBuilder();
-    static char[] arr;
-    static boolean[] visited;
-    static char[] splitNums;
-    static Set<Integer> set = new HashSet<>();
+    int[] newNumbers, arr;
+    int N;
+    boolean[] visited;
+    Set<Integer> set;
+    StringBuilder sb = new StringBuilder();
     public int solution(String numbers) {
-
-        splitNums = numbers.toCharArray();
-
-        int N = numbers.length();
-        visited = new boolean[numbers.length()];
-        // 길이 1부터 길이 numbers.length() 까지 백트래킹으로 경우의 수 구하기
-        for(int i = 1;i < numbers.length()+1;i++) {
-            arr = new char[i]; // 길이가 매번 다르므로 배열길이도 다르게 초기화
-            dfs(N, i, 0);
+        this.N = numbers.length();
+        newNumbers = new int[N];
+        char[] temp = numbers.toCharArray();
+        for(int i = 0; i < N; i++) {
+            newNumbers[i] = Integer.parseInt(temp[i]+"");
         }
-        int answer = 0;
-        for(int s: set) {
-            if (s <= 1) continue; // 1은 소수가 아님
-            if (isPrime(s)) answer++;
+        this.visited = new boolean[N];
+        
+        set = new HashSet<>();
+        
+        for(int i = 1; i <= N; i++) {
+            this.arr = new int[i];
+            backtracking(0, i);
         }
-        return answer;
+        
+        return set.size();
     }
-    static boolean isPrime(int n){
-        for(int i = 2; i <= n/2;i++) {
-            if(n%i == 0) return false;
-        }
-        return true;
-    }
-    static void dfs(int N, int M, int depth) {
-        if(depth == M) {
-            for(char val: arr) {
-                sb.append(val);
-            }
-            set.add(Integer.parseInt(sb.toString()));
+    void backtracking(int depth, int length) {
+        if(depth == length) {
             sb.setLength(0);
+            for(int a: arr) {
+                sb.append(a);
+            }
+            int result = Integer.parseInt(sb.toString());
+            if(isPrime(result)) {
+                set.add(result);
+            }
             return;
         }
-        for(int i = 0; i < N;i++) {
+        for(int i = 0; i < N; i++) {
             if(!visited[i]) {
                 visited[i] = true;
-                arr[depth] = splitNums[i]; // numbers에서 문자 꺼내서 길이 M인 배열에 저장
-                dfs(N, M, depth+1);
+                arr[depth] = newNumbers[i];
+                backtracking(depth + 1, length);
                 visited[i] = false;
             }
         }
-        return;
+    }
+    boolean isPrime(int n) {
+        // 1이하면 리턴
+        if(n <=1) return false;
+        boolean check = true;
+        for(int i = 2; i < n/2+1; i++) {
+            if(n % i == 0) {
+                check = false;
+                break;
+            }
+        }
+        return check;
     }
 }
