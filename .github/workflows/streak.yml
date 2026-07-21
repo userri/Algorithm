@@ -13,20 +13,25 @@ permissions:
 jobs:
   streak:
     runs-on: ubuntu-latest
-    # 봇 자신의 커밋으로 무한 루프 방지
-    if: github.actor != 'github-actions[bot]'
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # 전체 이력 필요
+          fetch-depth: 0   # git log 전체 이력 필요
 
       - name: Generate heatmap SVG
         run: python3 .github/scripts/streak_heatmap.py
 
-      - name: Commit if changed
+      # SVG는 main이 아니라 별도 'streak' 브랜치에 단일 커밋으로 force-push.
+      # 기본 브랜치가 아니므로 GitHub 기여 잔디에 봇 커밋이 잡히지 않는다.
+      - name: Publish to orphan streak branch
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          mkdir -p /tmp/out && cp assets/streak.svg /tmp/out/streak.svg
+          git checkout --orphan streak
+          git rm -rf --cached . >/dev/null 2>&1 || true
+          rm -rf assets && mkdir -p assets
+          cp /tmp/out/streak.svg assets/streak.svg
           git add assets/streak.svg
-          git diff --cached --quiet || git commit -m "chore: update streak heatmap [skip ci]"
-          git push
+          git commit -m "streak heatmap [skip ci]"
+          git push -f origin streak
