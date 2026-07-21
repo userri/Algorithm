@@ -22,15 +22,19 @@ MONTHS = ["1월", "2월", "3월", "4월", "5월", "6월",
 
 def commit_days() -> Counter:
     # 봇이 찍은 히트맵 갱신 커밋은 제외 — 실제 풀이 커밋만 스트릭에 반영
+    SKIP_KW = ("streak", "잔디", "스트릭")
     out = subprocess.check_output(
-        ["git", "log", "--format=%at%x09%an",
-         "--invert-grep", "--grep=streak heatmap"], text=True)
+        ["git", "log", "--format=%at%x09%an%x09%s"], text=True)
     days = Counter()
     for line in out.splitlines():
         if not line.strip():
             continue
-        ts, _, author = line.partition("\t")
+        parts = line.split("\t")
+        ts, author = parts[0], parts[1]
+        subject = parts[2] if len(parts) > 2 else ""
         if author.strip() == "github-actions[bot]":
+            continue
+        if any(kw in subject for kw in SKIP_KW):
             continue
         d = datetime.fromtimestamp(int(ts), tz=KST).date()
         days[d] += 1
