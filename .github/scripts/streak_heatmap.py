@@ -21,11 +21,18 @@ MONTHS = ["1월", "2월", "3월", "4월", "5월", "6월",
 
 
 def commit_days() -> Counter:
+    # 봇이 찍은 히트맵 갱신 커밋은 제외 — 실제 풀이 커밋만 스트릭에 반영
     out = subprocess.check_output(
-        ["git", "log", "--format=%at"], text=True)
+        ["git", "log", "--format=%at%x09%an",
+         "--invert-grep", "--grep=streak heatmap"], text=True)
     days = Counter()
-    for line in out.split():
-        d = datetime.fromtimestamp(int(line), tz=KST).date()
+    for line in out.splitlines():
+        if not line.strip():
+            continue
+        ts, _, author = line.partition("\t")
+        if author.strip() == "github-actions[bot]":
+            continue
+        d = datetime.fromtimestamp(int(ts), tz=KST).date()
         days[d] += 1
     return days
 
@@ -102,7 +109,6 @@ def build_svg(days: Counter, today: date) -> str:
     light_css = "".join(
         f".c{i}{{fill:{c}}}" for i, c in enumerate(LEVELS))
 
-    footer_y = height - 12
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">
 <style>
 .t{{font:10px sans-serif;fill:#57606a}}
@@ -117,7 +123,6 @@ def build_svg(days: Counter, today: date) -> str:
 {"".join(month_labels)}
 {weekday_labels}
 {"".join(cells)}
-<text x="{left}" y="{footer_y}" class="t">마지막 갱신: {today} (KST)</text>
 </svg>'''
 
 
