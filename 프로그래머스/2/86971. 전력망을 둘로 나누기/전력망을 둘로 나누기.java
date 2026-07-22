@@ -1,42 +1,56 @@
-
-
-import java.math.*;
+/*
+전력망을 나누는걸 어케할거냐?! 그냥 그때그때 양방향그래프를 무효화하기?
+*/
 import java.util.*;
-
 class Solution {
-    private static int depth = 0;
-
+    List<List<Integer>> graph = new ArrayList<>();
+    boolean[] visited;
+    int[][] wires;
+    int cnt = 0;
     public int solution(int n, int[][] wires) {
-        int answer = -1;
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<>();
-        for (int i = 0; i < n + 1; i++) {
+        
+        this.wires = wires;
+        
+        // v1,v2 범위 N까지이므로 N+1번
+        for(int i = 0; i < n+1; i++) 
             graph.add(new ArrayList<>());
+        for(int i = 0; i < n-1; i++) {
+            int v1 = wires[i][0];
+            int v2 = wires[i][1];
+            graph.get(v1).add(v2);
+            graph.get(v2).add(v1);
         }
-        for (int[] wire : wires) {
-            graph.get(wire[0]).add(wire[1]);
-            graph.get(wire[1]).add(wire[0]);
-        }
-        boolean[] visited;
-        // wires 중에서 하나만 disable 시켜 그리고 bfs 시켜...?
-        int minDiff = 1000;
-        for (int i = 0; i < wires.length; i++) {
+        
+        int answer = Integer.MAX_VALUE;
+        for(int i = 0; i < n-1; i++) {
+            // i번째 쌍을 끊고, 각각 v1, v2로 dfs/bfs 하면서 송전탑 개수 구하기
+            int v1 = wires[i][0];
+            int v2 = wires[i][1];
+            graph.get(v1).remove(Integer.valueOf(v2));
+            graph.get(v2).remove(Integer.valueOf(v1));
+            
             visited = new boolean[n+1];
-            dfs(1, wires[i][0], wires[i][1], graph, visited);
-            int remain = n - depth;
-            minDiff = Math.min(minDiff, Math.abs(depth - remain));
-            depth = 0;
+            cnt = 0;
+            dfs(v1);
+            int sum1 = cnt;
+            
+            visited = new boolean[n+1];
+            cnt = 0;
+            dfs(v2);
+            int sum2 = cnt;
+            
+            answer = Math.min(answer, Math.abs(sum1 - sum2));
+            graph.get(v1).add(v2);
+            graph.get(v2).add(v1);
         }
-        return minDiff;
+        return answer;
     }
-
-    private void dfs(int cur, int left, int right, ArrayList<ArrayList<Integer>> graph, boolean[] visited) {
-        if (visited[cur]) return;
-        visited[cur] = true;
-        depth++; // 방문하면서 깊이 늘리기
-        for (int n : graph.get(cur)) {
-            if (!(cur == left && n == right) && !(cur == right && n == left)) {
-                dfs(n, left, right, graph, visited);
-            }
+    void dfs(int x) {
+        if(visited[x]) return;
+        cnt++;
+        visited[x] = true;
+        for(int i: graph.get(x)) {
+            dfs(i);
         }
     }
 }

@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 85.8 MB, 시간: 2.23 ms
+메모리: 81.3 MB, 시간: 5.99 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2026년 03월 25일 14:55:54
+2026년 07월 22일 19:50:41
 
 ### 문제 설명
 
@@ -74,7 +74,7 @@
 
 <ul>
 <li>다음 그림은 주어진 입력을 해결하는 방법 중 하나를 나타낸 것입니다.</li>
-<li><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/5b8a0dcd-cba0-47ca-b5e3-d3bafc81f9d6/ex1.png" title="" alt="ex1.png"></li>
+<li><img src="https://asset.programmers.co.kr/files/production/5b8a0dcd-cba0-47ca-b5e3-d3bafc81f9d6/ex1.png" title="" alt="ex1.png"></li>
 <li>4번과 7번을 연결하는 전선을 끊으면 두 전력망은 각 6개와 3개의 송전탑을 가지며, 이보다 더 비슷한 개수로 전력망을 나눌 수 없습니다.</li>
 <li>또 다른 방법으로는 3번과 4번을 연결하는 전선을 끊어도 최선의 정답을 도출할 수 있습니다.</li>
 </ul>
@@ -83,7 +83,7 @@
 
 <ul>
 <li>다음 그림은 주어진 입력을 해결하는 방법을 나타낸 것입니다.</li>
-<li><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/b28865e1-a18e-429d-ae7a-14e77e801539/ex2.png" title="" alt="ex2.png"></li>
+<li><img src="https://asset.programmers.co.kr/files/production/b28865e1-a18e-429d-ae7a-14e77e801539/ex2.png" title="" alt="ex2.png"></li>
 <li>2번과 3번을 연결하는 전선을 끊으면 두 전력망이 모두 2개의 송전탑을 가지게 되며, 이 방법이 최선입니다.</li>
 </ul>
 
@@ -91,7 +91,7 @@
 
 <ul>
 <li>다음 그림은 주어진 입력을 해결하는 방법을 나타낸 것입니다.</li>
-<li><img src="https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/0a7f21af-1e07-4015-8ad3-c06155c613b3/ex3.png" title="" alt="ex3.png"></li>
+<li><img src="https://asset.programmers.co.kr/files/production/0a7f21af-1e07-4015-8ad3-c06155c613b3/ex3.png" title="" alt="ex3.png"></li>
 <li>3번과 7번을 연결하는 전선을 끊으면 두 전력망이 각각 4개와 3개의 송전탑을 가지게 되며, 이 방법이 최선입니다.</li>
 </ul>
 
