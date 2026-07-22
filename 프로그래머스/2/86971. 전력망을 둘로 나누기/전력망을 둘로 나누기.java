@@ -22,26 +22,23 @@ class Solution {
         }
         
         int answer = Integer.MAX_VALUE;
-        for(int i = 0; i < n-1; i++) {
+        for(int i = 0; i < n-1; i++) {{
             // i번째 쌍을 끊고, 각각 v1, v2로 dfs/bfs 하면서 송전탑 개수 구하기
             int v1 = wires[i][0];
             int v2 = wires[i][1];
-            graph.get(v1).remove(Integer.valueOf(v2));
-            graph.get(v2).remove(Integer.valueOf(v1));
+            // 끊을 간선의 정보를 넘기기
             
             visited = new boolean[n+1];
             cnt = 0;
-            dfs(v1);
+            dfs(v1, v2);
             int sum1 = cnt;
             
             visited = new boolean[n+1];
             cnt = 0;
-            dfs(v2);
+            dfs(v2, v1);
             int sum2 = cnt;
             
             answer = Math.min(answer, Math.abs(sum1 - sum2));
-            graph.get(v1).add(v2);
-            graph.get(v2).add(v1);
         }
         return answer;
     }
