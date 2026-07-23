@@ -6,6 +6,7 @@
 같은재료 여러번 사용 못함
 N: 1~20 ->  수가 작음. 비트마스킹 힌트
 L: 1~10000
+두번째 제출: 쓸데없는 visited 없앰
 */
 import java.util.*;
 import java.io.*;
@@ -33,15 +34,15 @@ public class Solution {
                 foods[i][1] = k;
             }
             // 하나도 방문안함 상태
-            comb(0, 0, 0, 0);
+            comb(0, 0, 0);
             // 1 << 0 0번째는 방문한 상태
-            comb(0, 1, foods[0][0], foods[0][1]);
+            comb(0, foods[0][0], foods[0][1]);
 
             System.out.println("#" + test_case + " " + maxScore);
         }
     }
     // cur: 지금 어디까지 체크했는지, visited: 방문상태
-    static void comb(int cur, int visited, int scoreSum, int calSum) {
+    static void comb(int cur, int scoreSum, int calSum) {
         // 모든 수를 체크했다면 최대선호도 업데이트
         // 어차피 칼로리 넘치는애들은 여기까지 도달못함
         if(cur == N-1) {
@@ -52,10 +53,10 @@ public class Solution {
         // 조합이니까 순서없으니 무조건 내 바로 다음만 검사
         int next = cur + 1;
         // 바로 다음꺼 안넣을때는 칼로리 검사 안해, 방문상태, 점수합, 칼로리합 다 그대로 넘겨
-        comb(next, visited, scoreSum, calSum);
+        comb(next, scoreSum, calSum);
         
         // 바로 다음꺼 넣을때는 칼로리 검사 후 초과하면 통과 안시켜
         if(calSum + foods[next][1] > L) return; 
-        comb(next, visited | (1 << next) , scoreSum + foods[next][0], calSum + foods[next][1]);
+        comb(next, scoreSum + foods[next][0], calSum + foods[next][1]);
     }
 }
