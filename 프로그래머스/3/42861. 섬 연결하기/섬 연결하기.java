@@ -44,7 +44,9 @@ class Solution {
         // 초기화된 적이 한번이라도 있다면 재귀를 통해 상위 부모까지 찾아가
         } else {
             // i가 아니라 i의 부모를 넣어야 함을 주의!
-            return find(parent[i]);
+            return parent[i] = find(parent[i]); // 매번 조상까지 가지 않도록 
+            // 부가설명
+            // 1->4->2 이런식으로 조상이 이어지면 parent[1] = 4가 아닌 parent[1] = 2로 업데이트 해놔야 재귀를 덜 탐(parent[i]==i에서 조상이어야 빨리 리턴되기때문)
         }
     }
 }
