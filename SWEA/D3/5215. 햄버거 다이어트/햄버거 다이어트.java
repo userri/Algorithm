@@ -32,6 +32,7 @@ class Solution {
             for(int i = 0; i < N; i++) {
                 int taste = foods[i][0];
                 int cal = foods[i][1];
+                // 제한칼로리(L) 범위를 제대로 안보고 배열도 초기화 1000으로 하고 이것도 1000부터 시작하게 해서 계속 틀림
                 for(int w = L; w-cal >= 0; w--) {
                     dp[w] = Math.max(dp[w], dp[w-cal] + taste);
                 }
