@@ -1,78 +1,75 @@
+// n명의 고객을 방문하고 자신의 집에 돌아와
+// 외판원순회
+// 거리는 가로세로 거리합
+
+// dp 배열 행/렬 크기를 100이 아닌 N으로 초기화하고
+// -1로 초기화하는것도 N까지만 해서 한참 헤맴
+
 import java.util.*;
 import java.io.*;
-
-public class Solution {
-
-    static int N, crow, ccol, hrow, hcol;
-    static int[][] address; // 손님들 주소 저장
-    static int[][][] dp; // 외판원순회 문제와 다르게 그냥 가로세로 길이가 이동거리이므로
-    // cost 배열은 불필요
-    static final int INF = 987654321;
-
+class Solution {
+    // dp[i][j][k] : 현재위치 i행 j열이고 현재 방문상태 k일 때 나머지를 다 도는데에 필요한 최소 cost(여기서는 방문거리)를 저장
+    static int[][][] dp;
+    static int homeRow, homeCol, N;
+    static int INF = 987654321;
+    static int[][] arr;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+
         int T = Integer.parseInt(br.readLine());
-        for (int test_case = 1; test_case <= T; test_case++) {
+        for(int test_case = 1; test_case <= T; test_case++) {
             N = Integer.parseInt(br.readLine());
             st = new StringTokenizer(br.readLine());
-
-            address = new int[N][2];
-            dp = new int[101][101][(1 << N)]; // 현재위치 i, j 이고 방문상태 k일 때 나머지 고객을 모두 도는 데에 남은 거
+            dp = new int[101][101][1 << N];
             for(int i = 0; i < 101; i++) {
                 for(int j = 0; j < 101; j++) {
                     Arrays.fill(dp[i][j], -1);
                 }
             }
-            crow = Integer.parseInt(st.nextToken());
-            ccol = Integer.parseInt(st.nextToken());
-            hrow = Integer.parseInt(st.nextToken());
-            hcol = Integer.parseInt(st.nextToken());
-            for (int i = 0; i < N; i++) {
-                int row = Integer.parseInt(st.nextToken());
-                int col = Integer.parseInt(st.nextToken());
-                // i번째 고객의 행과 열을 address 배열에 저장
-                address[i][0] = row;
-                address[i][1] = col;
+            int compRow = Integer.parseInt(st.nextToken());
+            int compCol = Integer.parseInt(st.nextToken());
+            homeRow = Integer.parseInt(st.nextToken());
+            homeCol = Integer.parseInt(st.nextToken());
+            arr = new int[N][2];
+
+            for(int i = 0; i < N; i++) {
+                arr[i][0] = Integer.parseInt(st.nextToken());
+                arr[i][1] = Integer.parseInt(st.nextToken());
             }
-            // 가로 + 세로가 200이니까 가로세로를 2^200으로 할리는 없잖아...?
-            // 고객을 탐색해서 이동할때마다 이동거리를 계산하는게 맞는것같음
-            System.out.println("#" + test_case + " " + tsp(crow, ccol, 0)); // 틀린이유: 1로 넣고 시작하면 첫번째 1<<0으로 0번째 손님을 방문했단 뜻. 0이어야함!
-            for (int i = 0; i < N; i++) {
-                for (int j = 0; j < N; j++) {
-                    // System.out.print(dp[i][j][0] + "," + dp[i][j][1] + " ");
-                }
-                // System.out.println();
-            }
+            // 1<<0이면 첫번째 방문하고 시작하는거라서 아예 방문 안한상태(0)로 시작해야함
+            System.out.println("#" + test_case + " " + tsp(compRow, compCol, 0));
+            
         }
     }
-
-    // 현재 위치가 currow, currol 이고 방문상태가 visited일 때 나머지 집들을 모두 방문하는데에 걸리는 수
-    static int tsp(int currow, int curcol, int visited) {
-        // 모든 손님을 방문했다면
-        if (visited == ((1 << N) - 1)) {
-            // 외판원순회와 다르게, 갈수있는지 경로를 따지는 게 아니라 그냥 집까지의 가로세로 거리를 더함
-            return Math.abs(currow - hrow) + Math.abs(curcol - hcol);
+    static int tsp(int curRow, int curCol, int visited) {
+        // System.out.println(curRow +", "+curCol+", "+visited + "방문");
+        // 1 << 0 부터 1 << (n-1)을 다 방문했으면 11...11 (N << 1 - 1)
+        if(visited == ((1<<N) - 1)) {
+            // 방문을 다 했다면
+            // 목적지(집)로 가야해
+            // 무조건 갈수있고 집까지의 가로세로 거리 더해주기
+            return Math.abs(curRow - homeRow) + Math.abs(curCol - homeCol);
         }
 
-        // 이미 방문한 경로면
-        if (dp[currow][curcol][visited] != -1) {
-            return dp[currow][curcol][visited];
+        // System.out.println(curRow + ", " + curCol + ", " + visited);
+        // 한번 방문했을 때 최소값으로 초기화되기 때문에 재방문할 필요 없음
+        if(dp[curRow][curCol][visited] != -1) {
+            return dp[curRow][curCol][visited];
         }
-        dp[currow][curcol][visited] = INF;
+        dp[curRow][curCol][visited] = INF;
 
-        for (int next = 0; next < N; next++) {
-            // 이미 방문했으면(외판원순회와 달리 경로없는 경우는 존재안함)
-            if ((visited & (1 << next)) != 0) {
-                continue;
-            }
-            // 현재에서 next까지 가는 이동거리 + next에서 나머지 도시 도는 최소거리를 계산.
-            // 더 작으면 업데이트
-            int nrow = address[next][0];
-            int ncol = address[next][1];
-            int ndist = Math.abs(currow - nrow) + Math.abs(curcol - ncol);
-            dp[currow][curcol][visited] = Math.min(dp[currow][curcol][visited], ndist + tsp(nrow, ncol, (visited | (1 << next))));
+        for(int i = 0; i < N; i++) {
+            // 이미 방문했으면 (+ 도달할수없으면-이문제는 해당사항 없음) 건너뛰기
+            if((visited & (1 << i)) != 0) continue;
+            int nrow = arr[i][0];
+            int ncol = arr[i][1];
+            int ndist = Math.abs(curRow - nrow) + Math.abs(curCol - ncol);
+            // "지금" next를 방문하면 최소값이 업데이트 되냐 안되냐
+            int before = dp[curRow][curCol][visited];
+            dp[curRow][curCol][visited] = Math.min(dp[curRow][curCol][visited], ndist + tsp(nrow, ncol, visited | (1 << i)));         
+            // System.out.println(before + " -> " + dp[curRow][curCol][visited]);
         }
-        return dp[currow][curcol][visited];
+        return dp[curRow][curCol][visited];        
     }
 }
