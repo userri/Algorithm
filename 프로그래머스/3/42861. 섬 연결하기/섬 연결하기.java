@@ -35,8 +35,8 @@ class Solution {
         return answer;
     }
     void union(int a, int b) {
-        int aParent = parent[a];
-        int bParent = parent[b];
+        int aParent = find(a); // 그냥 parent[i]를 주는게 아닌 find 함수를 이용해 최종조상을 줘야 함!
+        int bParent = find(b);
         if(aParent != bParent) {
             // 각 조상끼리 부모자식 관계로 만들어버려
             parent[aParent] = bParent;
@@ -47,7 +47,7 @@ class Solution {
         if(parent[i] == i) 
             return i;
         else {
-            // 한번이라도 부모가 바뀐 적이 있다면 최종조상 찾아서 돌려줘(지금은 최종조상 애초에 union에서 저장)
+            // 한번이라도 부모가 바뀐 적이 있다면 최종조상 찾아서 돌려줘
             return parent[i] = find(parent[i]);
         }
     }
