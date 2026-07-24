@@ -25,7 +25,7 @@ class Solution {
             for(int i = 0; i < N; i++) {
                 // 0번째 원소로 끝나는 dp[0] = 1
                 // 1번째 원소로 끝나는 dp[1] = 0번째, 1번째 증가되는지 검사: 2 or 1
-                // 2번째 원소로 끝나는 dp[2] = dp[1] + 1 or 1
+                // 2번째 원소로 끝나는 dp[2] = 숫자가 더 커진다면 이전 dp값들 중 최대값 + 1
                 for(int j = i+1; j < N; j++) {
                     // i번째 원소 이후로 커지는 숫자 한개라도 있으면 max값 업데이트해나가
                     if(arr[i] < arr[j]) {
@@ -35,7 +35,7 @@ class Solution {
             }
             int answer = 0;
             for(int i: dp) {
-                answer = Math.max(answer, i);
+                answer = Math.max(answer, i); // 냅색은 dp[L]이 답, LIS는 Math.max(dp[N])이 답!!!
             }
             // 예외: 수열 길이 1개, 같은것만, 감소만
             System.out.println("#" + test_case + " " + answer);
