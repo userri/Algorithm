@@ -1,63 +1,50 @@
 /*
-좌상단 시작, 우하단 종료이므로 위보다 아래먼저, 왼보다 오른먼저 우선순위 정하면 될듯
-근데 미로가 볼록한 식으로 되어있으면 그건 어케 탐색해야하지 내 코드로 되나
-0 1 1 0
-0 0 1 1
-1 0 0 0
-1 0 1 0
-우선순위를 바꿔서 한번더 계산해야하나?(아래>오른에서 오른>아래)
-일단 테케 되는지 확인
-
--> 틀림
-bfs로 전략변경
--> 효율성테스트 틀림
-큐에서 꺼낼때가 아닌 큐에 넣을때 즉시 방문처리
-
+오른쪽, 아래 먼저
+bfs로 도착지 먼저 도달하면 answer 업데이트
 */
 
 import java.util.*;
 class Solution {
-    // 아래오른위왼
-    int[] drow = {1,0,-1,0};
-    int[] dcol = {0,1,0,-1};
-    boolean[][] visited;
-    int N,M;
+    // 우하좌상
+    int[] drow = {0,1,0,-1};
+    int[] dcol = {1,0,-1,0};
     int[][] maps;
-    boolean flag = false;
+    boolean[][] visited;
+    int answer = -1;
     public int solution(int[][] maps) {
         this.maps = maps;
-        N = maps.length;
-        M = maps[0].length;
-        visited = new boolean[N][M];
-    
-        return bfs(0,0);
+        visited = new boolean[maps.length][maps[0].length];
+        bfs();
+        return answer;
     }
-    int bfs(int row, int col) {
-        Queue<Point> q = new ArrayDeque<>();
-        q.offer(new Point(row, col , 1));
+    void bfs() {
+        Queue<int[]> q = new ArrayDeque<>();
+        // 행,열,이동한 칸 수 전달
+        q.offer(new int[]{0,0,1});
+        visited[0][0] = true;
         while(!q.isEmpty()) {
-            Point cur = q.poll();
-            // System.out.println(cur.row +", " + cur.col + " 방문");
-            if(cur.row == N-1 && cur.col == M-1) return cur.cnt;
-            for(int i = 0; i <4; i++) {
-                int nr = cur.row + drow[i];
-                int nc = cur.col + dcol[i];
-                if(nr < 0 || nr >= N || nc < 0 || nc >= M) continue; // 인덱스 범위 초과
-                if(maps[nr][nc] == 0) continue; // 갈 수 없는 경로
-                if(visited[nr][nc]) continue; // 이미 방문
-                q.offer(new Point(nr, nc, cur.cnt+1));
-                visited[nr][nc] = true;
+            int[] cur = q.poll();
+            int row = cur[0];
+            int col = cur[1];
+            int moved = cur[2];
+            if(row == maps.length-1 && col == maps[0].length-1) {
+                answer = moved;
+                return;
             }
-        }
-        return -1;
-        
-    } 
-}
-class Point {
-    int row, col, cnt;
-    public Point(int row, int col, int cnt) {
-        this.row = row;
-        this.col = col;
-        this.cnt = cnt;
+            
+            for(int i = 0; i < 4; i++) {
+                int nr = row + drow[i];
+                int nc = col + dcol[i];
+                int nm = moved + 1;
+                if(nr < 0 || nr >= maps.length || nc < 0 || nc >= maps[0].length) continue;
+                if(maps[nr][nc] == 0 || visited[nr][nc]) continue;
+                q.offer(new int[]{nr,nc,nm});
+                visited[nr][nc] = true;
+                if(nr == maps.length-1 && nc == maps[0].length-1) {
+                    answer = nm;
+                    return;
+                }
+            }
+        } 
     }
 }
