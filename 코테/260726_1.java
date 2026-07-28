@@ -4,8 +4,8 @@ public class Solution {
     public long solution(long[] dataSize, long[] processingTime) {
 
         // 일하는 서버 - 끝나는 시간 오름차순으로 정렬해서 사용가능한 서버 빨리 꺼내도록
-        // Long 비교는 a[1] - b[1] 아닌 Long.compare로 하도록 주의!
-        PriorityQueue<long[]> busy = new PriorityQueue<>((a,b) -> Long.compare(a[1] - b[1]));
+        // Long 비교는 a[1] - b[1] 아닌 Long.compare로 하도록 주의! 빼기가 아니라 콤마로 구분하기!
+        PriorityQueue<long[]> busy = new PriorityQueue<>((a,b) -> Long.compare(a[1], b[1]));
         // 쉬는 서버 - 쉬는 순간부터 모든 서버가 평등해짐. 누적처리량 저장 후 오름차순
         PriorityQueue<Long> free = new PriorityQueue<>();
 
