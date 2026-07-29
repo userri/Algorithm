@@ -42,3 +42,15 @@ git commit -m "fix: 외판원 순회 오타 수정"
 4. 위 이미지는 그 `streak` 브랜치의 SVG를 참조합니다.
 
 > 💡 BaekjoonHub가 재제출/오답 후 정답 등으로 커밋을 놓치는 경우가 있습니다. 그럴 땐 하루가 끝나기 전에 위 방식으로 직접 커밋하면 그날 잔디가 인정됩니다.
+
+<!---LeetCode Topics Start-->
+# LeetCode Topics
+## Array
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/1882-process-tasks-using-servers/) | Medium |
+## Heap (Priority Queue)
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/1882-process-tasks-using-servers/) | Medium |
+<!---LeetCode Topics End-->
