@@ -1,0 +1,43 @@
+name: Organize LeetCode folders
+
+# LeetHub v2가 레포 루트에 만드는 "1882-process-tasks-using-servers" 형태의
+# 폴더를 LeetCode/ 아래로 모아준다. (LeetHub에는 경로 지정 옵션이 없음)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  organize:
+    # 봇 자신의 커밋에는 반응하지 않음 (무한 루프 방지)
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Move LeetHub folders into LeetCode/
+        run: |
+          shopt -s nullglob
+          moved=0
+          for dir in [0-9]*-*/; do
+            name="${dir%/}"
+            mkdir -p LeetCode
+            rm -rf "LeetCode/$name"      # 같은 문제 재업로드 시 최신본으로 교체
+            mv "$name" "LeetCode/"
+            echo "moved: $name"
+            moved=1
+          done
+          echo "MOVED=$moved" >> $GITHUB_ENV
+
+      - name: Commit if changed
+        if: env.MOVED == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: LeetCode 폴더 정리 [skip ci]"
+          git push
