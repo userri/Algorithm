@@ -48,9 +48,9 @@ git commit -m "fix: 외판원 순회 오타 수정"
 ## Array
 | Problem Name | Difficulty |
 | ------- | ------- |
-| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/1882-process-tasks-using-servers/) | Medium |
+| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Heap (Priority Queue)
 | Problem Name | Difficulty |
 | ------- | ------- |
-| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/1882-process-tasks-using-servers/) | Medium |
+| [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 <!---LeetCode Topics End-->
