@@ -1,47 +1,58 @@
-
 /*
-귀가방향이 비슷한 어피치와 택시합승 이용하여 택시요금 얼마나 아낄수 있을지 계산
-만약 합승안하는 게 더 싸면 합승안해도 됨
-근데 A입장에서는 탑승 안한 게 더 싼데 B때문에 전체방향이 싸지는 방향으로 가야되는 경우도 생기
-그냥 다익스트라...는 아니란 말이지? 다익스트라 복습 하고싶어짐
-흠...
-일단 완탐으로 코드 짜보기?
-근데...
-A랑 B랑 어디까지 겹치는지 어케계산? 그걸 매번 택시요금 합쳐서 A랑 B랑 혼자가는 구간이 각각 어디인지 계산해야하는거아님? 댕머리아픔
+유형 판단
+간선이 있다 -> 다익스트라/mst/bfs/플로이드워셜 후보
+간선비용이 다르다 -> bfs 탈락
+시작 정점이 고정되어있지 않다 -> 플로이드 워셜! 다익스트라는 고정되어있어야 함. 전체를 하나로 묶는 게 아니라서 mst도 탈락
 
-음... i부터 j까지 가는 최단거리를 dist에 저장해
-음... 합승하는 한명만 
+Q. 10 -> 1 -> 20 -> 11 이렇게 중간에 (1 -> 20 -> 11) 더 큰 경유지가 필요하면
+    처음 경유지가 1인 경우를 검사하면서 10->1->11)을 계산할 때 정보가 부족하진 않은지? 
+    나중에 10->1->20이랑 1->20->11이랑 잘 통합되는지?
+A. "괜찮음"
+왜냐면... 
+case1) 10 -> 1 -> 20 -> 11 이면?
+k=1일때: dist[10][20] = dist[10][1] + dist[1][20] 
+k=20일때: dist[10][11] = dist[10][20](이미 최솟값) +dist[20][11]
+case2) 10 -> 1 -> 20 -> 13 -> 11이면?
+k = 1일 때 dist[10][20]
+k = 13일 때 dist[20][11]
+k = 20일 때 dist[10][11] = dist[10][20] + dist[20][11]
+
+요약: k = 20이면 본인보다 작은 경유지를 거치는 경로는 이미 최솟값이 확정되어 있다
+
+시간복잡도 계산 습관: for문 3번. 정점 V개 -> O(V^3)
 
 */
+
 import java.util.*;
+
 class Solution {
     public int solution(int n, int s, int a, int b, int[][] fares) {
         
-        
         int[][] dist = new int[n+1][n+1];
-        for(int i = 0; i < n+1; i++) {
-            Arrays.fill(dist[i], 199*10_0000);
-        }
-        for(int i = 0; i < n+1; i++) dist[i][i] = 0;
+        int INF = 199*100_000; // i -> j로 가기 위한 최대 간선 개수 * 최대 cost
+        for(int i = 1; i <= n; i++) Arrays.fill(dist[i], INF);
+        for(int i = 1; i <= n; i++) dist[i][i] = 0; // 자기자신으로의 이동은 0
+        
+        // 주어진 요금 먼저 업데이트
         for(int[] fare: fares) {
-            dist[fare[0]][fare[1]] = fare[2];
-            dist[fare[1]][fare[0]] = fare[2];
+            int st = fare[0], end = fare[1], cost = fare[2];
+            dist[st][end] = Math.min(dist[st][end], cost);
+            dist[end][st] = Math.min(dist[end][st], cost); // 복붙하면서 방향 바꾸는거 깜빡하지 않게 조심!
         }
         
-        // 경유지가 가장 바깥 -> 중요
-        for(int k = 1; k <= n; k++) {
-            for(int i = 1; i <= n; i++) {
-                for(int j = 1; j <= n; j++) {
-                    // 경유지를 지나는 게 더 빠르다면 업데이트
-                    // System.out.print(dist[i][j] + "-> ");
+        for(int k = 1; k <= n; k++) { // 경유지
+            for(int i = 1; i <= n; i++) { // 시작지
+                for(int j = 1; j <= n; j++) { // 도착지
+                    // k 지점을 경유하는 게 더 비용이 적다면 업데이트
                     dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
-                    // System.out.println(i + " " + j + " " + k + " " + dist[i][j]);
                 }
             }
         }
-        int answer = Integer.MAX_VALUE;
-        for(int i = 1; i <= n; i++) {
-            answer = Math.min(answer, dist[s][i] + dist[i][a] + dist[i][b]);
+        
+        int answer = INF;
+        for(int k = 1; k <= n; k++) {
+            // 원래 최소경로가 따로 있더라도 환승최소값이 되게 하기 위해서 경로가 달라지는 것이 모두 반영됨
+            answer = Math.min(answer, dist[s][k] + dist[k][a] + dist[k][b]);
         }
         return answer;
     }
