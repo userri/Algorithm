@@ -21,8 +21,8 @@ w = 1000           → L            (배낭 루프 범위)
 dp[N-1]            → max(dp)      (LIS 정답 위치)
 시작점 방문처리 누락               (게임 맵 BFS)
 busy.peek()[0]     → [2]          (1882, 가중치를 종료시각으로 착각)
-minCost += ...     → maxCost      (오토에버 2번, 복붙 실수)
-max 초기값 3       → 0            (오토에버 2번, 임의값이 답에 섞임)
+minCost += ...     → maxCost      (260726 코테 2번, 복붙 실수)
+max 초기값 3       → 0            (260726 코테 2번, 임의값이 답에 섞임)
 ```
 
 **제출 전 체크**
@@ -75,19 +75,19 @@ max 초기값 3       → 0            (오토에버 2번, 임의값이 답에 �
 > 골격 코드를 저장하지 않는 이유: 코드를 "보면" 인출 훈련이 안 된다. 문제를 "풀면" 인출이 강제된다.
 > 골격이 필요하면 아래 경로의 **내가 푼 코드**가 곧 골격이다.
 
-| 유형 | 대표 문제 (딱 1개) | 레포 경로 |
+| 유형 | 문제 | 내 코드 |
 |---|---|---|
-| BFS (격자 최단) | PG 1844 게임 맵 최단거리 | `프로그래머스/2/1844...` |
-| 다익스트라 | PG 12978 배달 | `프로그래머스/2/12978...` |
-| 플로이드-워셜 | PG 72413 합승 택시 요금 | `프로그래머스/3/72413...` |
-| MST + 유니온파인드 | PG 42861 섬 연결하기 | `프로그래머스/3/42861...` |
-| 두 힙 (스케줄링) | LeetCode 1882 | `LeetCode/1882...` |
-| 힙 스케줄링 (단일) | PG 42627 디스크 컨트롤러 | `프로그래머스/3/42627...` |
-| DP 배낭 | SWEA 5215 햄버거 다이어트 | `SWEA/D3/5215...` |
-| DP LIS | SWEA 3307 최장 증가 부분 수열 | `SWEA/D3/3307...` |
-| 비트마스크 TSP | SWEA 1247 최적 경로 | `SWEA/D5/1247...` |
-| 파라메트릭 이분탐색 | PG 43238 입국심사 | ⚠️ 미커밋 — 올릴 것 |
-| 결정 백트래킹 | PG 43165 타겟 넘버 | `프로그래머스/2/43165...` |
+| BFS (격자 최단) | [게임 맵 최단거리](https://school.programmers.co.kr/learn/courses/30/lessons/1844) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/1844.%E2%80%85%EA%B2%8C%EC%9E%84%E2%80%85%EB%A7%B5%E2%80%85%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC/%EA%B2%8C%EC%9E%84%E2%80%85%EB%A7%B5%E2%80%85%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC.java) |
+| 다익스트라 | [배달](https://school.programmers.co.kr/learn/courses/30/lessons/12978) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/12978.%E2%80%85%EB%B0%B0%EB%8B%AC/%EB%B0%B0%EB%8B%AC.java) |
+| 플로이드-워셜 | [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/72413.%E2%80%85%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88/%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88.java) |
+| MST + 유니온파인드 | [섬 연결하기](https://school.programmers.co.kr/learn/courses/30/lessons/42861) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/42861.%E2%80%85%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0.java) |
+| 두 힙 (스케줄링) | [LeetCode 1882](https://leetcode.com/problems/process-tasks-using-servers/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/1882-process-tasks-using-servers/1882-process-tasks-using-servers.java) |
+| 힙 스케줄링 (단일) | [디스크 컨트롤러](https://school.programmers.co.kr/learn/courses/30/lessons/42627) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/42627.%E2%80%85%EB%94%94%EC%8A%A4%ED%81%AC%E2%80%85%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC/%EB%94%94%EC%8A%A4%ED%81%AC%E2%80%85%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC.java) |
+| DP 배낭 | SWEA 5215 햄버거 다이어트 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D3/5215.%E2%80%85%ED%96%84%EB%B2%84%EA%B1%B0%E2%80%85%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8/%ED%96%84%EB%B2%84%EA%B1%B0%E2%80%85%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8.java) |
+| DP LIS | SWEA 3307 최장 증가 부분 수열 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D3/3307.%E2%80%85%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4/%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4.java) |
+| 비트마스크 TSP | SWEA 1247 최적 경로 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D5/1247.%E2%80%85%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C/%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C.java) |
+| 파라메트릭 이분탐색 | [입국심사](https://school.programmers.co.kr/learn/courses/30/lessons/43238) | ⚠️ 미커밋 |
+| 결정 백트래킹 | [타겟 넘버](https://school.programmers.co.kr/learn/courses/30/lessons/43165) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.java) |
 
 ### 그래프 3형제 — 언제 뭘 쓰나
 ```
@@ -128,7 +128,7 @@ max 초기값 3       → 0            (오토에버 2번, 임의값이 답에 �
 **한 문장:** *"힙과 리스트는 꺼내는 도구지 찾는 도구가 아니다. 찾을 거면 HashMap."*
 
 > **"루프 안에서 찾고 있으면, 밖에서 미리 만들어라."**
-> 오토에버 두 문제를 모두 이걸로 날렸다 (유형 판정도 정답성도 맞았는데 시간초과).
+> 260726 코테 두 문제를 모두 이걸로 날렸다 (유형 판정도 정답성도 맞았는데 시간초과).
 > 1번 두 힙: **50분 → 8ms** / 2번 HashMap 전처리: **90초 → 183ms (494배)**
 
 ### ③ 두 힙 골격 (시간축 + 선택기준)
@@ -185,4 +185,4 @@ for (int i = 0; i < n; i++) {
 TSP(비트마스크 DP) · **두 힙(스케줄링)** · 힙/PQ · BFS · DFS/백트래킹 · MST+유니온파인드(경로압축)
 · DP(배낭·LIS·격자) · 파라메트릭 이분탐색 · 다익스트라 · 그리디
 
-**유형 판정은 이미 된다** — 오토에버 두 문제 모두 유형(힙 스케줄링 / MST+필수간선)을 정확히 잡았다.
+**유형 판정은 이미 된다** — 260726 코테 두 문제 모두 유형(힙 스케줄링 / MST+필수간선)을 정확히 잡았다.
