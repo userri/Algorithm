@@ -22,22 +22,26 @@ jobs:
       - name: Move LeetHub folders into LeetCode/
         run: |
           shopt -s nullglob
-          moved=0
           for dir in [0-9]*-*/; do
             name="${dir%/}"
             mkdir -p LeetCode
             rm -rf "LeetCode/$name"      # 같은 문제 재업로드 시 최신본으로 교체
             mv "$name" "LeetCode/"
             echo "moved: $name"
-            moved=1
           done
-          echo "MOVED=$moved" >> $GITHUB_ENV
+
+      - name: Fix LeetCode Topics links in README
+        run: |
+          # LeetHub는 링크를 tree/main/1882-... 로 쓴다 → tree/main/LeetCode/1882-... 로 교정
+          # 이미 LeetCode/ 가 붙은 링크는 패턴에 안 걸려서 중복 적용되지 않음
+          if [ -f README.md ]; then
+            sed -i 's|tree/main/\([0-9][0-9]*-\)|tree/main/LeetCode/\1|g' README.md
+          fi
 
       - name: Commit if changed
-        if: env.MOVED == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "chore: LeetCode 폴더 정리 [skip ci]"
+          git diff --cached --quiet || git commit -m "chore: LeetCode 폴더/링크 정리 [skip ci]"
           git push
