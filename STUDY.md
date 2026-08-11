@@ -64,9 +64,7 @@ Arrays.fill(dp[n][m]) → dp[i][j]  (경주로, 루프 변수 자리에 크기�
 
 ## 미학습 유형 (약점 아니라 공백)
 
-| 유형 | 대표 문제 |
-|---|---|
-| 백트래킹 응용 (조합 + 중복 제거) | 프로그래머스 64064 불량 사용자 ← **다음** |
+지금 비어 있음. 새 유형을 만나면 여기에 적고, 풀고 나면 아래 유형 인덱스로 옮긴다.
 
 ---
 
@@ -91,6 +89,7 @@ Arrays.fill(dp[n][m]) → dp[i][j]  (경주로, 루프 변수 자리에 크기�
 | DP LIS | 순서 유지 부분 수열. 각 원소를 **앞의 모든 원소와** 비교 | SWEA 3307 최장 증가 부분 수열 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D3/3307.%E2%80%85%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4/%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4.java) |
 | 비트마스크 TSP | 전부 한 번씩 방문 + **순서가 비용에 영향**. n ≤ 20 | SWEA 1247 최적 경로 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D5/1247.%E2%80%85%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C/%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C.java) |
 | 파라메트릭 이분탐색 | 답을 직접 못 구함. "X면 되나?" **판정은 쉽고 단조로움** | [입국심사](https://school.programmers.co.kr/learn/courses/30/lessons/43238) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/43238.%E2%80%85%EC%9E%85%EA%B5%AD%EC%8B%AC%EC%82%AC/%EC%9E%85%EA%B5%AD%EC%8B%AC%EC%82%AC.java) |
+| 백트래킹 + 정규형 중복제거 | 자리에 배정하는데 **순서가 의미 없음**. n ≤ 10 | [불량 사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/64064.%E2%80%85%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90/%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90.java) |
 | 결정 백트래킹 | 원소마다 선택지가 **고정**(+/−). 모든 조합을 셈 | [타겟 넘버](https://school.programmers.co.kr/learn/courses/30/lessons/43165) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.java) |
 
 ### 그래프 3형제 — 언제 뭘 쓰나
@@ -181,6 +180,29 @@ for (int i = 0; i < n; i++) {
 ```
 > **알고리즘 개선이 10,000배, 상수 최적화는 2~3배.** TLE면 먼저 알고리즘을 의심할 것.
 > 통과했는데 리트코드 퍼센타일이 낮은 건 무시해도 된다 (편차가 큼).
+
+### ⑦ 백트래킹 — 시작할 때 두 개를 적는다
+
+백트래킹은 전부 **칸 채우기**다. 코드를 쓰기 전에 이 둘을 적는다.
+
+| 문제 | 칸 (재귀 깊이) | 후보 (for문) |
+|---|---|---|
+| 타겟 넘버 | 숫자 n개 | `{+, −}` 2개 |
+| 불량 사용자 | `banned_id` 8자리 | 유저 8명 |
+| N-Queens | 행 8개 | 열 8개 |
+| 순열 만들기 | 자리 n개 | 아직 안 쓴 원소 |
+
+칸은 0번부터 **순서대로 채우고 되돌아가지 않는다** → 재귀 깊이. 후보는 **매번 갈라진다** → for문.
+
+> **종료 조건은 칸으로 건다.** `idx == 칸_개수`.
+> 반드시 끝에 닿는 게 칸이고, 닿을지 모르는 건 후보 쪽 누적값(`mask`)이다.
+> 64064에서 `mask == FULLBIT`으로 걸려다 막혔다 — 유저를 다 안 써도 끝나는 게 정상이었다.
+
+**순서가 의미 없으면** 결과를 정규형으로 눌러 `Set`에 넣는다. 중복을 미리 막으려 하지 말고 만들고 나서 합친다.
+`n ≤ 20`이면 집합은 비트마스크 → `Set<Integer>`.
+
+> 제약이 작으면(`n ≤ 10`) 그건 제약이 아니라 **"완탐해라"는 지시문**이다. 알고리즘을 찾으러 가기 전에 `n!` 부터 계산한다.
+> 64064에서 이 계산을 건너뛰고 "확정 짓고 좁혀가기"로 한 시간을 썼다. 실제로는 8P8 × 8 = 30만, 여유롭다.
 
 ---
 
