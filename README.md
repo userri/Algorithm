@@ -46,11 +46,20 @@ git commit -m "fix: 외판원 순회 오타 수정"
 <!---LeetCode Topics Start-->
 # LeetCode Topics
 ## Array
-| Problem Name | Difficulty |
-| ------- | ------- |
+|  |
+| ------- |
+| [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Heap (Priority Queue)
-| Problem Name | Difficulty |
-| ------- | ------- |
+|  |
+| ------- |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
+## Design
+|  |
+| ------- |
+| [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
+## Prefix Sum
+|  |
+| ------- |
+| [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 <!---LeetCode Topics End-->
