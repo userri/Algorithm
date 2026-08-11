@@ -23,6 +23,7 @@ dp[N-1]            → max(dp)      (LIS 정답 위치)
 busy.peek()[0]     → [2]          (1882, 가중치를 종료시각으로 착각)
 minCost += ...     → maxCost      (260726 코테 2번, 복붙 실수)
 max 초기값 3       → 0            (260726 코테 2번, 임의값이 답에 섞임)
+Arrays.fill(dp[n][m]) → dp[i][j]  (경주로, 루프 변수 자리에 크기를 씀)
 ```
 
 **제출 전 체크**
@@ -65,8 +66,7 @@ max 초기값 3       → 0            (260726 코테 2번, 임의값이 답에 
 
 | 유형 | 대표 문제 |
 |---|---|
-| 상태 BFS (`visited[r][c][방향]`) | 프로그래머스 67259 경주로 건설 ← **다음** |
-| 백트래킹 응용 (조합 + 중복 제거) | 프로그래머스 64064 불량 사용자 |
+| 백트래킹 응용 (조합 + 중복 제거) | 프로그래머스 64064 불량 사용자 ← **다음** |
 
 ---
 
@@ -78,6 +78,7 @@ max 초기값 3       → 0            (260726 코테 2번, 임의값이 답에 
 | 유형 | 문제 | 내 코드 |
 |---|---|---|
 | BFS (격자 최단) | [게임 맵 최단거리](https://school.programmers.co.kr/learn/courses/30/lessons/1844) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/1844.%E2%80%85%EA%B2%8C%EC%9E%84%E2%80%85%EB%A7%B5%E2%80%85%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC/%EA%B2%8C%EC%9E%84%E2%80%85%EB%A7%B5%E2%80%85%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC.java) |
+| 상태 다익스트라 (`dp[r][c][방향]`) | [[카카오 인턴] 경주로 건설](https://school.programmers.co.kr/learn/courses/30/lessons/67259) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/67259.%E2%80%85%EF%BC%BB%EC%B9%B4%EC%B9%B4%EC%98%A4%E2%80%85%EC%9D%B8%ED%84%B4%EF%BC%BD%E2%80%85%EA%B2%BD%EC%A3%BC%EB%A1%9C%E2%80%85%EA%B1%B4%EC%84%A4/%EF%BC%BB%EC%B9%B4%EC%B9%B4%EC%98%A4%E2%80%85%EC%9D%B8%ED%84%B4%EF%BC%BD%E2%80%85%EA%B2%BD%EC%A3%BC%EB%A1%9C%E2%80%85%EA%B1%B4%EC%84%A4.java) |
 | 다익스트라 | [배달](https://school.programmers.co.kr/learn/courses/30/lessons/12978) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/12978.%E2%80%85%EB%B0%B0%EB%8B%AC/%EB%B0%B0%EB%8B%AC.java) |
 | 플로이드-워셜 | [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/72413.%E2%80%85%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88/%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88.java) |
 | MST + 유니온파인드 | [섬 연결하기](https://school.programmers.co.kr/learn/courses/30/lessons/42861) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/42861.%E2%80%85%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0.java) |
