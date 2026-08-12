@@ -20,28 +20,64 @@ MONTHS = ["1월", "2월", "3월", "4월", "5월", "6월",
           "7월", "8월", "9월", "10월", "11월", "12월"]
 
 
+SKIP_DIRS = (".github/", "assets/")
+# 문제마다 폴더를 만들지 않고 파일이 바로 놓이는 곳
+LOOSE_ROOTS = ("코테",)
+# 유지보수 커밋 접두어 — BaekjoonHub/LeetHub 풀이 커밋은 '[' 나 문제 제목,
+# 'Time:' 으로 시작하며 이런 접두어를 쓰지 않으므로 안전하게 거른다.
+SKIP_PREFIX = ("chore:", "fix:", "ci:", "docs:", "refactor:",
+               "test:", "build:", "style:")
+
+
+def problem_key(path: str):
+    """풀이 파일 경로 -> 문제 식별자. 문제 파일이 아니면 None."""
+    path = path.strip().strip('"')
+    if not path or "/" not in path or path.startswith(SKIP_DIRS):
+        return None                       # 루트 README.md, STUDY.md, 워크플로 등
+    parts = path.split("/")
+    # 코테/260726_2.java 처럼 폴더 없이 놓인 파일은 파일 자체가 곧 문제다.
+    if parts[0] in LOOSE_ROOTS and len(parts) == 2:
+        return path
+    key = "/".join(parts[:-1])            # 대개 문제마다 폴더가 하나
+    # LeetHub는 폴더를 레포 루트에 만들고 봇이 LeetCode/ 아래로 옮긴다.
+    # 이동 전후가 같은 문제로 잡히도록 접두어를 떼고 비교한다.
+    return key[len("LeetCode/"):] if key.startswith("LeetCode/") else key
+
+
 def commit_days() -> Counter:
-    # 봇이 찍은 히트맵 갱신 커밋은 제외 — 실제 풀이 커밋만 스트릭에 반영
-    # 유지보수 커밋 접두어 — BaekjoonHub 풀이 커밋은 '['나 문제 제목으로
-    # 시작하며 이런 접두어를 쓰지 않으므로, 이걸로 유지보수를 안전하게 거른다.
-    SKIP_PREFIX = ("chore:", "fix:", "ci:", "docs:", "refactor:",
-                   "test:", "build:", "style:")
+    """하루에 '서로 다른 문제를 몇 개 건드렸나'를 센다.
+
+    커밋 수를 세면 안 된다 — LeetHub/백준허브는 제출 한 번에 커밋을 여러 개
+    만들고(README 생성 / 코드 / Topic Tags / stats), 재제출하면 또 늘어난다.
+    그러면 한 문제가 3~4로 잡혀 색 농도가 부풀려진다. 커밋이 실제로 건드린
+    풀이 폴더로 세면 중복 커밋·재제출·문서 커밋이 한꺼번에 정리된다.
+    """
     out = subprocess.check_output(
-        ["git", "log", "--format=%at%x09%an%x09%s"], text=True)
-    days = Counter()
-    for line in out.splitlines():
-        if not line.strip():
+        ["git", "-c", "core.quotepath=false", "log",
+         "--format=%x00%at%x09%an%x09%s", "--name-only"],
+        text=True, encoding="utf-8")
+
+    per_day: dict = {}
+    for chunk in out.split(chr(0)):
+        if not chunk.strip():
             continue
-        parts = line.split("\t")
+        head, *paths = chunk.splitlines()
+        parts = head.split("	")
         ts, author = parts[0], parts[1]
         subject = parts[2].strip() if len(parts) > 2 else ""
+        # 봇이 찍은 정리 커밋은 제외 — 실제 풀이만 반영
         if author.strip() == "github-actions[bot]":
             continue
         if subject.startswith(SKIP_PREFIX):
             continue
+
+        problems = {k for k in map(problem_key, paths) if k}
+        if not problems:
+            continue                      # 루트 README·문서만 건드린 커밋
         d = datetime.fromtimestamp(int(ts), tz=KST).date()
-        days[d] += 1
-    return days
+        per_day.setdefault(d, set()).update(problems)
+
+    return Counter({d: len(probs) for d, probs in per_day.items()})
 
 
 def streaks(days: Counter, today: date) -> tuple[int, int]:
@@ -97,7 +133,7 @@ def build_svg(days: Counter, today: date) -> str:
             lv = level(days.get(d, 0))
             cells.append(
                 f'<rect class="c{lv}" x="{x}" y="{y}" width="{CELL}" '
-                f'height="{CELL}" rx="2"><title>{d} : {days.get(d, 0)}커밋'
+                f'height="{CELL}" rx="2"><title>{d} : {days.get(d, 0)}문제'
                 f'</title></rect>')
         first = start + timedelta(weeks=w)
         if first.month != seen_month:
@@ -126,7 +162,7 @@ def build_svg(days: Counter, today: date) -> str:
 {dark_css}
 }}
 </style>
-<text x="{left}" y="16" class="h">🔥 현재 스트릭 {cur}일 · 최장 {longest}일 · 총 {total}커밋</text>
+<text x="{left}" y="16" class="h">🔥 현재 스트릭 {cur}일 · 최장 {longest}일 · 총 {total}문제</text>
 {"".join(month_labels)}
 {weekday_labels}
 {"".join(cells)}
@@ -138,7 +174,7 @@ def main():
     today = datetime.now(tz=KST).date()
     import os
     os.makedirs("assets", exist_ok=True)
-    with open(OUT, "w") as f:
+    with open(OUT, "w", encoding="utf-8") as f:
         f.write(build_svg(days, today))
     cur, longest = streaks(days, today)
     print(f"current={cur} longest={longest} total={sum(days.values())}")
