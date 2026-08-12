@@ -24,6 +24,7 @@ busy.peek()[0]     → [2]          (1882, 가중치를 종료시각으로 착�
 minCost += ...     → maxCost      (260726 코테 2번, 복붙 실수)
 max 초기값 3       → 0            (260726 코테 2번, 임의값이 답에 섞임)
 Arrays.fill(dp[n][m]) → dp[i][j]  (경주로, 루프 변수 자리에 크기를 씀)
+sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으로 읽음)
 ```
 
 **제출 전 체크**
@@ -89,6 +90,8 @@ Arrays.fill(dp[n][m]) → dp[i][j]  (경주로, 루프 변수 자리에 크기�
 | DP LIS | 순서 유지 부분 수열. 각 원소를 **앞의 모든 원소와** 비교 | SWEA 3307 최장 증가 부분 수열 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D3/3307.%E2%80%85%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4/%EC%B5%9C%EC%9E%A5%E2%80%85%EC%A6%9D%EA%B0%80%E2%80%85%EB%B6%80%EB%B6%84%E2%80%85%EC%88%98%EC%97%B4.java) |
 | 비트마스크 TSP | 전부 한 번씩 방문 + **순서가 비용에 영향**. n ≤ 20 | SWEA 1247 최적 경로 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D5/1247.%E2%80%85%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C/%EF%BC%BBS%EF%BC%8FW%E2%80%85%EB%AC%B8%EC%A0%9C%ED%95%B4%EA%B2%B0%E2%80%85%EC%9D%91%EC%9A%A9%EF%BC%BD%E2%80%853%EC%9D%BC%EC%B0%A8%E2%80%85%EF%BC%8D%E2%80%85%EC%B5%9C%EC%A0%81%E2%80%85%EA%B2%BD%EB%A1%9C.java) |
 | 파라메트릭 이분탐색 | 답을 직접 못 구함. "X면 되나?" **판정은 쉽고 단조로움** | [입국심사](https://school.programmers.co.kr/learn/courses/30/lessons/43238) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/43238.%E2%80%85%EC%9E%85%EA%B5%AD%EC%8B%AC%EC%82%AC/%EC%9E%85%EA%B5%AD%EC%8B%AC%EC%82%AC.java) |
+| 누적합 + HashMap | 부분 배열 **합**을 세는데 **음수가 섞임**. 구간 → 점 두 개로 바꿔 Two Sum | [LeetCode 560](https://leetcode.com/problems/subarray-sum-equals-k/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/0560-subarray-sum-equals-k/0560-subarray-sum-equals-k.java) |
+| 슬라이딩 윈도우 (투 포인터) | 부분 배열 합/길이인데 **전부 양수**. 늘리면 커지고 줄이면 작아짐 | [LeetCode 209](https://leetcode.com/problems/minimum-size-subarray-sum/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/0209-minimum-size-subarray-sum/0209-minimum-size-subarray-sum.java) |
 | 백트래킹 + 정규형 중복제거 | 자리에 배정하는데 **순서가 의미 없음**. n ≤ 10 | [불량 사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/64064.%E2%80%85%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90/%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90.java) |
 | 결정 백트래킹 | 원소마다 선택지가 **고정**(+/−). 모든 조합을 셈 | [타겟 넘버](https://school.programmers.co.kr/learn/courses/30/lessons/43165) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.java) |
 
@@ -203,6 +206,42 @@ for (int i = 0; i < n; i++) {
 
 > 제약이 작으면(`n ≤ 10`) 그건 제약이 아니라 **"완탐해라"는 지시문**이다. 알고리즘을 찾으러 가기 전에 `n!` 부터 계산한다.
 > 64064에서 이 계산을 건너뛰고 "확정 짓고 좁혀가기"로 한 시간을 썼다. 실제로는 8P8 × 8 = 30만, 여유롭다.
+
+### ⑧ 부분 배열 — 부호를 먼저 본다
+
+| 신호 | 도구 |
+|---|---|
+| 전부 **양수** (늘리면 커지고 줄이면 작아짐) | 슬라이딩 윈도우 |
+| **음수 섞임** (단조성이 깨짐) | 누적합 + HashMap |
+
+제약의 부호 한 줄이 도구를 바꾼다. 문제를 열면 이것부터 확인한다.
+
+**슬라이딩 윈도우 골격** — 바깥 for 가 넓히고, 안쪽 while 이 좁힌다.
+```java
+int l = 0, sum = 0, best = Integer.MAX_VALUE;
+for (int r = 0; r < n; r++) {
+    sum += a[r];                       // 오른쪽 확장
+    while (sum >= target) {            // 충분한 동안 계속 좁힌다
+        best = Math.min(best, r - l + 1);
+        sum -= a[l++];
+    }
+}
+```
+> 안쪽이 `if` 가 아니라 `while` 인 게 핵심. 한 번 좁혀도 여전히 충분하면 또 좁혀야 한다.
+> 두 포인터 다 **오른쪽으로만** 간다. `l++` 은 창을 넓히는 게 아니라 **좁히는** 것 — 여기서 헷갈렸다.
+
+**누적합 + HashMap 골격** — 구간을 점 두 개로 바꾸면 Two Sum 이 된다.
+```java
+map.put(0, 1);                         // 아무것도 안 더한 시점도 왼쪽 경계 후보
+for (int x : nums) {
+    sum += x;
+    answer += map.getOrDefault(sum - k, 0);   // 먼저 조회
+    map.merge(sum, 1, Integer::sum);          // 그다음 자기 등록
+}
+```
+> `prefix[r] - prefix[l] == k` → `prefix[l] == prefix[r] - k`.
+> map 에 든 값 하나하나가 **가능한 왼쪽 경계**다. 안쪽 for 문이 조회 한 번으로 접힌 것.
+> 순서를 바꾸면 자기 자신을 세고, `map.put(0,1)` 을 빠뜨리면 0번째부터 시작하는 구간을 놓친다.
 
 ---
 
