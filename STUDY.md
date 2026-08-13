@@ -6,6 +6,8 @@
 > 3. 다 풀어서 약점이 해소되면 **그 항목째로 삭제**한다. 완료 목록은 남기지 않는다.
 > 4. 약점은 문제 이름이 아니라 **패턴**으로 적는다.
 > 5. 재사용되는 지식은 약점이 해소돼도 **참조 자료**로 옮긴다.
+> 6. **시간 상한은 유형을 아느냐에 따라 다르다.** 처음 보는 유형 → **20분**, 안 되면 답 보고 이해하고 3일 뒤 백지에서 다시. 한 번 본 유형 → **50분**, 이건 진짜 인출이라 붙는 시간이 곧 학습이다.
+>    모르는 유형에 오래 붙이는 건 인출이 아니라 **재발명**이다. 비싸고, 그 유형이 싫어진다. 싫어지면 학습은 거기서 끝난다.
 
 ---
 
@@ -50,7 +52,6 @@ sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으
 | 문제 | 경계 포인트 |
 |---|---|
 | 프로그래머스 64062 징검다리 건너기 | `consecutive` 초기값 0, `>k` vs `>=k` |
-| 프로그래머스 60058 괄호 변환 | u = 앞에서 훑어 `(`,`)` 개수가 **처음 같아지는 지점**에서 자르기 — 미제출 |
 | LeetCode 253 Meeting Rooms II | 끝나는 시각 == 시작 시각일 때 겹치나 — 미제출 |
 
 ---
@@ -84,6 +85,7 @@ sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으
 | 다익스트라 | 한 점 → 모든 점 최단. 간선 가중치 양수, V 큼 | [배달](https://school.programmers.co.kr/learn/courses/30/lessons/12978) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/12978.%E2%80%85%EB%B0%B0%EB%8B%AC/%EB%B0%B0%EB%8B%AC.java) |
 | 플로이드-워셜 | 경유점을 바꿔가며 **모든 쌍**을 봐야 함. V ≤ 400쯤 | [합승 택시 요금](https://school.programmers.co.kr/learn/courses/30/lessons/72413) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/72413.%E2%80%85%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88/%ED%95%A9%EC%8A%B9%E2%80%85%ED%83%9D%EC%8B%9C%E2%80%85%EC%9A%94%EA%B8%88.java) |
 | MST + 유니온파인드 | 전부 하나로 연결 + 총비용 최소. **경로는 안 물음** | [섬 연결하기](https://school.programmers.co.kr/learn/courses/30/lessons/42861) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/42861.%E2%80%85%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0/%EC%84%AC%E2%80%85%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0.java) |
+| 위상정렬 (DFS 후위) | **순서 제약**(A 다음에 B)이 있고 **불가능한 경우가 존재**. 최단거리를 안 물음 | [LeetCode 210](https://leetcode.com/problems/course-schedule-ii/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/0210-course-schedule-ii/0210-course-schedule-ii.java) |
 | 두 힙 (스케줄링) | 원소가 두 상태(대기↔작업중)를 **오감**. 시각마다 전환 | [LeetCode 1882](https://leetcode.com/problems/process-tasks-using-servers/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/1882-process-tasks-using-servers/1882-process-tasks-using-servers.java) |
 | 힙 스케줄링 (단일) | 도착 시각이 있는 작업. 매 순간 "지금 가능한 것 중 최선" | [디스크 컨트롤러](https://school.programmers.co.kr/learn/courses/30/lessons/42627) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/42627.%E2%80%85%EB%94%94%EC%8A%A4%ED%81%AC%E2%80%85%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC/%EB%94%94%EC%8A%A4%ED%81%AC%E2%80%85%EC%BB%A8%ED%8A%B8%EB%A1%A4%EB%9F%AC.java) |
 | DP 배낭 | 넣거나 만다 + **용량 제한** + 가치 최대 | SWEA 5215 햄버거 다이어트 | [코드](https://github.com/userri/Algorithm/blob/main/SWEA/D3/5215.%E2%80%85%ED%96%84%EB%B2%84%EA%B1%B0%E2%80%85%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8/%ED%96%84%EB%B2%84%EA%B1%B0%E2%80%85%EB%8B%A4%EC%9D%B4%EC%96%B4%ED%8A%B8.java) |
@@ -95,11 +97,12 @@ sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으
 | 백트래킹 + 정규형 중복제거 | 자리에 배정하는데 **순서가 의미 없음**. n ≤ 10 | [불량 사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/64064.%E2%80%85%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90/%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90.java) |
 | 결정 백트래킹 | 원소마다 선택지가 **고정**(+/−). 모든 조합을 셈 | [타겟 넘버](https://school.programmers.co.kr/learn/courses/30/lessons/43165) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.java) |
 
-### 그래프 3형제 — 언제 뭘 쓰나
+### 그래프 4형제 — 언제 뭘 쓰나
 ```
 한 점 → 모든 점 최단,  V 큼          →  다익스트라   O(E log V)
 모든 점 → 모든 점 최단,  V ≤ 400쯤   →  플로이드     O(V³)
 전부 하나로 연결 + 최소 비용          →  MST(크루스칼) O(E log E)
+거리가 아니라 순서. 사이클이면 불가능  →  위상정렬     O(V + E)
 ```
 
 ### 복잡도, 외울 건 3개뿐
@@ -251,3 +254,37 @@ TSP(비트마스크 DP) · **두 힙(스케줄링)** · 힙/PQ · BFS · DFS/백
 · DP(배낭·LIS·격자) · 파라메트릭 이분탐색 · 다익스트라 · 그리디
 
 **유형 판정은 이미 된다** — 260726 코테 두 문제 모두 유형(힙 스케줄링 / MST+필수간선)을 정확히 잡았다.
+
+### ⑨ 위상정렬 — 시작점을 고르지 않는다
+
+**유형 판단**
+```
+"A 다음에 B" 순서 제약   +  불가능한 경우가 답에 있음(빈 배열/-1)
+거리·비용을 안 물음                    →  위상정렬
+```
+비용을 물으면 다익스트라·MST 쪽이다. 순서만 물으면 여기.
+
+**사고 흐름 4단계 (210에서 실제로 걸린 순서)**
+
+**1. 간선 방향을 정한다.** `[a,b]` = a 전에 b.
+`graph[a] = a의 선수과목들` 로 잡으면 DFS가 **더 깊은 선행 과목**으로 들어간다.
+
+**2. 시작점을 고르려 하지 마라.** ← 210에서 여기서 20분 날림.
+"아무도 요구하지 않는 과목부터" 같은 조건을 세우면 외톨이 정점이 통째로 빠진다.
+정답은 **전부 돌면서 아직 안 본 것만** DFS. 덩어리가 여러 개여도 자동으로 커버된다.
+(유니온파인드와 같은 감각 — 시작점을 고르지 않고 전부 훑는다)
+
+**3. 결과에 넣는 타이밍 = 재귀가 되돌아 나오는 순간(후위).**
+그 시점엔 그 정점의 선행 정점이 전부 이미 들어가 있다. 이게 정당성의 전부다.
+간선을 1번처럼 잡았으면 **뒤집을 필요 없이** 후위 순서가 곧 답.
+
+**4. 순환 판정 — 상태는 boolean 이 아니라 3개.**
+```
+0 안 봄  /  1 지금 이 DFS 경로 위(재귀 스택)  /  2 끝나서 결과에 들어감
+1을 만나면 → 순환.   2를 만나면 → return, 순환 아님.
+```
+`0→1→3, 0→2→3` 처럼 **합류하는 DAG** 에서 3을 두 번 만난다. 상태가 2개뿐이면
+이걸 순환으로 오판한다. "다시 만남"과 "지금도 스택에 있음"은 다른 사건이다.
+
+**BFS 버전(indegree + 큐)** 도 같은 문제를 푼다. 순환 판정이 더 직관적:
+결과 개수 < V 면 순환. 복습 때 이쪽으로 다시 풀면 한 유형을 두 각도로 갖는다.
