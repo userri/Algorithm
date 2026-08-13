@@ -8,6 +8,8 @@
 > 5. 재사용되는 지식은 약점이 해소돼도 **참조 자료**로 옮긴다.
 > 6. **시간 상한은 유형을 아느냐에 따라 다르다.** 처음 보는 유형 → **20분**, 안 되면 답 보고 이해하고 3일 뒤 백지에서 다시. 한 번 본 유형 → **50분**, 이건 진짜 인출이라 붙는 시간이 곧 학습이다.
 >    모르는 유형에 오래 붙이는 건 인출이 아니라 **재발명**이다. 비싸고, 그 유형이 싫어진다. 싫어지면 학습은 거기서 끝난다.
+>    단, **상한은 개념형에만 건다.** "뭘 해야 할지 아는데 손이 안 따라가는" 구현형은 상한 없음 — 오래 걸리는 게 정상이고 그 시간이 곧 실력이다.
+>    구분법: 막힌 게 **발상**인가 **정리**인가. 발상이면 20분, 정리면 끝까지.
 
 ---
 
@@ -62,6 +64,9 @@ sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으
 
 > **제출 전 `Ctrl+F` → `println` 검색.** 3초.
 
+**안 읽는 변수는 여기 넣지 않는다** — 실패 방식이 다르다. `println` 은 채점기가 잡아 즉사시키고,
+안 읽는 변수는 채점을 통과한 뒤 **사람 눈에만** 걸린다. → 참조자료 ⑩
+
 ---
 
 ## 미학습 유형 (약점 아니라 공백)
@@ -95,6 +100,7 @@ sum == target      → >=           (LC209, 문제는 '이상'인데 '같음'으
 | 누적합 + HashMap | 부분 배열 **합**을 세는데 **음수가 섞임**. 구간 → 점 두 개로 바꿔 Two Sum | [LeetCode 560](https://leetcode.com/problems/subarray-sum-equals-k/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/0560-subarray-sum-equals-k/0560-subarray-sum-equals-k.java) |
 | 슬라이딩 윈도우 (투 포인터) | 부분 배열 합/길이인데 **전부 양수**. 늘리면 커지고 줄이면 작아짐 | [LeetCode 209](https://leetcode.com/problems/minimum-size-subarray-sum/) | [코드](https://github.com/userri/Algorithm/blob/main/LeetCode/0209-minimum-size-subarray-sum/0209-minimum-size-subarray-sum.java) |
 | 백트래킹 + 정규형 중복제거 | 자리에 배정하는데 **순서가 의미 없음**. n ≤ 10 | [불량 사용자](https://school.programmers.co.kr/learn/courses/30/lessons/64064) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/3/64064.%E2%80%85%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90/%EB%B6%88%EB%9F%89%E2%80%85%EC%82%AC%EC%9A%A9%EC%9E%90.java) |
+| 문자열 파싱 + 해시맵 2패스 | 출력이 과거 로그인데 **나중 이벤트가 과거 출력을 바꿈**. 확정을 미루고 마지막에 한 번 더 훑는다 | [오픈채팅방](https://school.programmers.co.kr/learn/courses/30/lessons/42888) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/42888.%E2%80%85%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9/%EC%98%A4%ED%94%88%EC%B1%84%ED%8C%85%EB%B0%A9.java) |
 | 결정 백트래킹 | 원소마다 선택지가 **고정**(+/−). 모든 조합을 셈 | [타겟 넘버](https://school.programmers.co.kr/learn/courses/30/lessons/43165) | [코드](https://github.com/userri/Algorithm/blob/main/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/2/43165.%E2%80%85%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84/%ED%83%80%EA%B2%9F%E2%80%85%EB%84%98%EB%B2%84.java) |
 
 ### 그래프 4형제 — 언제 뭘 쓰나
@@ -288,3 +294,21 @@ TSP(비트마스크 DP) · **두 힙(스케줄링)** · 힙/PQ · BFS · DFS/백
 
 **BFS 버전(indegree + 큐)** 도 같은 문제를 푼다. 순환 판정이 더 직관적:
 결과 개수 < V 면 순환. 복습 때 이쪽으로 다시 풀면 한 유형을 두 각도로 갖는다.
+
+### ⑩ 버린 접근은 그 자리에서 지운다
+
+중간에 다른 방법으로 갈아타면 앞의 자료구조가 **선언만 남고 안 읽히는 채로** 남는다.
+채점은 통과한다. 코드를 사람이 보는 자리(기업 코테·리뷰)에서만 감점된다.
+
+```
+println          → 채점기가 잡는다. 오답·효율성 실패로 즉사        → W2
+안 읽는 변수      → 채점기는 통과시킨다. 사람이 볼 때만 감점        → 여기
+```
+
+**제출 직전에 찾지 마라. 비싸다.** `println` 처럼 검색으로 안 걸린다.
+- **갈아타는 그 순간에 지운다.** "이제 이거 안 쓰네"는 그때는 확실히 알고 30분 뒤엔 잊는다.
+- 놓쳤으면 **IntelliJ 가 회색으로 죽여서 보여준다.** 검색이 아니라 3초 훑기.
+  단 프로그래머스 웹 에디터에는 없다 — 로컬에서 짜고 붙여넣으면 공짜로 얻는다.
+
+실제 사례: 42888 오픈채팅방의 `Map<String,Boolean> in` — `put` 3번, `get` 0번.
+입퇴장 여부를 `chat` 에 넣기로 바꾸면서 필요가 없어졌는데 선언이 남았다.
