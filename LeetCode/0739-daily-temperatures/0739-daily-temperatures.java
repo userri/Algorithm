@@ -12,9 +12,6 @@ class Solution {
         int[] temp = temperatures;
         int[] result = new int[temp.length];
 
-        int max = 0;
-        for(int t: temp) max = Math.max(max, t);
-
         // 숫자와 인덱스를 배열로 넣어
         ArrayDeque<int[]> stack = new ArrayDeque<>();
         stack.offer(new int[]{temp[0] , 0});
@@ -27,12 +24,9 @@ class Solution {
                 result[past[1]] = i - past[1];
                 // System.out.println(past[0] + "(idx:"+past[1]+") " +"꺼냄");
             }
-            if(now == max || i == temp.length - 1) {
-                result[i] = 0;
-            } else {
-                stack.offer(new int[]{temp[i], i});
-                // System.out.println(temp[i] + "(idx:"+i+") " +"넣음");
-            }
+            stack.offer(new int[]{temp[i], i});
+            // System.out.println(temp[i] + "(idx:"+i+") " +"넣음");
+            
         }
 
         // System.out.println(Arrays.toString(result));
