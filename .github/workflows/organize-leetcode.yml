@@ -11,6 +11,12 @@ on:
 permissions:
   contents: write
 
+# 연속 푸시로 런이 겹치면 서로 밀어내며 실패한다. 여기선 폴더를 실제로 옮기므로
+# 중간에 취소하면 어중간한 상태가 남는다 → 취소 대신 한 줄로 세워 순서대로 돌린다.
+concurrency:
+  group: organize-leetcode
+  cancel-in-progress: false
+
 jobs:
   organize:
     # 봇 자신의 커밋에는 반응하지 않음 (무한 루프 방지)

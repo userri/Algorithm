@@ -10,6 +10,14 @@ on:
 permissions:
   contents: write
 
+# 백준허브/LeetHub는 문제 하나에 커밋을 3~4개 연달아 민다.
+# 그러면 런이 동시에 떠서 같은 streak 브랜치에 force-push 하다 ref 잠금 충돌로 죽는다.
+#   ! [remote rejected] cannot lock ref 'refs/heads/streak'
+# 히트맵은 전체 git log 로 매번 새로 그리므로 마지막 런 하나만 살리면 된다.
+concurrency:
+  group: streak-publish
+  cancel-in-progress: true
+
 jobs:
   streak:
     runs-on: ubuntu-latest
