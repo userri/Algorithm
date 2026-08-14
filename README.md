@@ -51,6 +51,7 @@ git commit -m "fix: 외판원 순회 오타 수정"
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
+| [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Heap (Priority Queue)
 |  |
@@ -94,4 +95,12 @@ git commit -m "fix: 외판원 순회 오타 수정"
 |  |
 | ------- |
 | [0210-course-schedule-ii](https://github.com/userri/Algorithm/tree/master/0210-course-schedule-ii) |
+## Stack
+|  |
+| ------- |
+| [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
+## Monotonic Stack
+|  |
+| ------- |
+| [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
 <!---LeetCode Topics End-->
