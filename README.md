@@ -46,61 +46,72 @@ git commit -m "fix: 외판원 순회 오타 수정"
 <!---LeetCode Topics Start-->
 # LeetCode Topics
 ## Array
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
 | [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Heap (Priority Queue)
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Design
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
 ## Prefix Sum
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
 ## Hash Table
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
 ## Binary Search
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 ## Sliding Window
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 ## Depth-First Search
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0210-course-schedule-ii](https://github.com/userri/Algorithm/tree/master/0210-course-schedule-ii) |
 ## Breadth-First Search
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0210-course-schedule-ii](https://github.com/userri/Algorithm/tree/master/0210-course-schedule-ii) |
 ## Graph Theory
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0210-course-schedule-ii](https://github.com/userri/Algorithm/tree/master/0210-course-schedule-ii) |
 ## Topological Sort
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0210-course-schedule-ii](https://github.com/userri/Algorithm/tree/master/0210-course-schedule-ii) |
 ## Stack
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
 ## Monotonic Stack
-|  |
-| ------- |
+| Problem Name | Difficulty |
+| ------- | ------- |
 | [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
+## Linked List
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+## Hash Function
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
 <!---LeetCode Topics End-->
