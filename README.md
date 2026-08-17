@@ -51,7 +51,7 @@ git commit -m "fix: 외판원 순회 오타 수정"
 | [0209-minimum-size-subarray-sum](https://github.com/userri/Algorithm/tree/master/0209-minimum-size-subarray-sum) |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
-| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/LeetCode/0706-design-hashmap/) | Easy |
 | [0739-daily-temperatures](https://github.com/userri/Algorithm/tree/master/0739-daily-temperatures) |
 | [1882-process-tasks-using-servers](https://github.com/userri/Algorithm/tree/main/LeetCode/1882-process-tasks-using-servers/) | Medium |
 ## Heap (Priority Queue)
@@ -62,7 +62,7 @@ git commit -m "fix: 외판원 순회 오타 수정"
 |  |
 | ------- |
 | [0303-range-sum-query-immutable](https://github.com/userri/Algorithm/tree/master/0303-range-sum-query-immutable) |
-| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/LeetCode/0706-design-hashmap/) | Easy |
 ## Prefix Sum
 |  |
 | ------- |
@@ -73,7 +73,7 @@ git commit -m "fix: 외판원 순회 오타 수정"
 |  |
 | ------- |
 | [0560-subarray-sum-equals-k](https://github.com/userri/Algorithm/tree/master/0560-subarray-sum-equals-k) |
-| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/LeetCode/0706-design-hashmap/) | Easy |
 ## Binary Search
 |  |
 | ------- |
@@ -109,9 +109,9 @@ git commit -m "fix: 외판원 순회 오타 수정"
 ## Linked List
 |  |
 | ------- |
-| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/LeetCode/0706-design-hashmap/) | Easy |
 ## Hash Function
 |  |
 | ------- |
-| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/0706-design-hashmap/) | Easy |
+| [0706-design-hashmap](https://github.com/userri/Algorithm/tree/main/LeetCode/0706-design-hashmap/) | Easy |
 <!---LeetCode Topics End-->
