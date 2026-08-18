@@ -1,29 +1,30 @@
+/**
+합이 target이상인 subarray 중에 최소길이인것
+ */
 class Solution {
     public int minSubArrayLen(int target, int[] nums) {
         
-        int l = 0, r = 0, sum = nums[0];
-        int count = 0;
-        int len = Integer.MAX_VALUE;
+        int sum = nums[0], answer = Integer.MAX_VALUE;
+        int l = 0,r= 0;
         while(r < nums.length) {
-            
-            if(sum >= target){
-                len = Math.min(len, r - l + 1);
-                count++;
-                // 만약 왼쪽 줄이려고 햇는데 r넘으면 r을 늘려
-                if(l + 1 > r) {
+            System.out.println(l + ", " + r + ": " + sum);
+            if(sum < target) {
+                if(r + 1 < nums.length) {
+                    r++;
+                    sum += nums[r];
+                } else break; // 늘려야되는데 인덱스 넘어가기 시작하면 break;
+            } else  { // sum >= target일 때
+                answer = Math.min(answer, r - l + 1);
+                if(l + 1 <= r) {
+                    sum -= nums[l];
+                    l++;
+                } else {
                     if(r + 1 >= nums.length) break;
                     r++;
                     sum += nums[r];
-                } else {
-                    sum -= nums[l];
-                    l++;
                 }
-            } else if(sum < target) {
-                if(r+1 >= nums.length) break;
-                r++;
-                sum += nums[r];
             }
         }
-        return count == 0 ? 0 : len;
+        return answer == Integer.MAX_VALUE ? 0 : answer;
     }
 }
