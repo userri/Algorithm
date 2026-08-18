@@ -7,7 +7,6 @@ class Solution {
         int sum = nums[0], answer = Integer.MAX_VALUE;
         int l = 0,r= 0;
         while(r < nums.length) {
-            System.out.println(l + ", " + r + ": " + sum);
             if(sum < target) {
                 if(r + 1 < nums.length) {
                     r++;
