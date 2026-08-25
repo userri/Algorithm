@@ -20,3 +20,8 @@ HELP.md
 # IDE
 .idea/
 *.iml
+
+*.class
+
+# B형 기출은 유출 금지 — 원격에 올리지 않는다 (원본은 Notion)
+B형기출/
