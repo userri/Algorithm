@@ -2,3 +2,21 @@
 # 파이썬 캐시 (히트맵 스크립트 실행 시 생김)
 __pycache__/
 *.pyc
+
+# 맥 로컬 스크래치 Gradle 프로젝트 (커밋 대상 아님)
+# 완성된 풀이는 코테/ · B형기출/ 등 레포 디렉터리에 마스킹해서 넣는다
+.gitattributes
+.gitignore.gradle-local
+build.gradle
+settings.gradle
+gradlew
+gradlew.bat
+gradle/
+.gradle/
+build/
+src/
+HELP.md
+
+# IDE
+.idea/
+*.iml
