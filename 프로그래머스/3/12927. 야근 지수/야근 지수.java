@@ -20,7 +20,8 @@ class Solution {
         }
         long answer = 0;
         while(!pq.isEmpty()) {
-            answer += Math.pow(pq.poll(), 2);
+            long v = pq.poll();
+            answer += v * v;
         }
         return answer;
     }
