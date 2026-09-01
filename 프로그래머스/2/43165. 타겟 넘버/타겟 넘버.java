@@ -6,11 +6,9 @@
 class Solution {
     int[] numbers;
     int answer, N, target;
-    boolean[] visited;
     public int solution(int[] numbers, int target) {
         this.numbers = numbers;
         this.N = numbers.length;
-        visited = new boolean[N];
         this.target = target;
 
         backtracking(0, 0);
@@ -24,7 +22,7 @@ class Solution {
             }
             return;
         }
-        backtracking(depth+1, sum + numbers[depth]);
+        backtracking(depth + 1, sum + numbers[depth]);
         backtracking(depth + 1, sum - numbers[depth]);
     }
 }
