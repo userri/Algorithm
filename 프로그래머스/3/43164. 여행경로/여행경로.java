@@ -14,7 +14,7 @@ class Solution {
 
 	// key: 출발지, value: 도착지 리스트
 	Map<String, List<String>> map = new HashMap<>();
-	Map<String, Map<String, Integer>> checked = new HashMap<>(); // 특정 경로 이미 썼는지 체크. 다익스트라처럼
+	Map<String, Map<String, Integer>> checked = new HashMap<>(); // 특정 경로 이미 썼는지 체크. => 중복 경로 있을수 있으므로 숫자저장으로 변경!
 
 	StringBuilder sb = new StringBuilder();
 	int CNT;
@@ -22,47 +22,39 @@ class Solution {
 	List<String> list = new ArrayList<>();
 
 	public String[] solution(String[][] tickets) {
-		CNT = tickets.length + 1;
 		arr = new String[tickets.length + 1];
 
 		// map 채우기
-		for (String[] path : tickets) {
-			map.putIfAbsent(path[0], new ArrayList<>());
-			map.putIfAbsent(path[1], new ArrayList<>());
-			map.get(path[0]).add(path[1]);
-			checked.putIfAbsent(path[0], new HashMap<>());
-			checked.get(path[0]).put(path[1], checked.get(path[0]).getOrDefault(path[1], 0) + 1);
+		for (String[] t : tickets) {
+			map.putIfAbsent(t[0], new ArrayList<>());
+			map.putIfAbsent(t[1], new ArrayList<>());
+			map.get(t[0]).add(t[1]);
+			checked.putIfAbsent(t[0], new HashMap<>());
+			checked.get(t[0]).put(t[1], checked.get(t[0]).getOrDefault(t[1], 0) + 1);
 		}
+
+		// 미리 정렬해놓으면 알파벳순으로 탐색하므로 별도 정렬 필요없음
+		for (List<String> v : map.values())
+			Collections.sort(v);
 
 		arr[0] = "ICN";
 		dfs("ICN", 1);
 
-		Collections.sort(list);
-		String[] result = new String[tickets.length + 1];
-		int idx = 0;
-		for (int i = 0; i + 3 <= list.get(0).length(); i += 3) {
-
-			result[idx++] = list.get(0).substring(i, i + 3);
-		}
-		return result;
+		return arr;
 	}
 
-	void dfs(String cur, int cnt) {
-		if (cnt == CNT) {
-			sb.setLength(0);
-			for (String s : arr)
-				sb.append(s);
-			list.add(sb.toString());
-		}
+	boolean dfs(String cur, int cnt) {
+		if (cnt == arr.length)
+			return true;
 		for (String next : map.get(cur)) {
-			if (map.get(cur).size() == 0)
-				continue;
 			if (checked.get(cur).get(next) == 0)
 				continue;
 			checked.get(cur).put(next, checked.get(cur).get(next) - 1);
 			arr[cnt] = next;
-			dfs(next, cnt + 1);
+			if (dfs(next, cnt + 1))
+				return true; // 첫 정답이 최종 정답이므로 바로 리턴
 			checked.get(cur).put(next, checked.get(cur).get(next) + 1);
 		}
+		return false;
 	}
 }
