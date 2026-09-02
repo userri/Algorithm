@@ -1,43 +1,68 @@
 
 
+/*
+ICN 출발
+주어진 항공권은 모두 사용해야 함
+가능한 경로가 2개 이상일 경우, 알파벳 순서가 앞서는 경로를 return
+
+string builder로 추가해가면서 항공티켓 다 썼을때만 리턴?
+*/
+
 import java.util.*;
+
 class Solution {
-    String[][] tickets;
-    List<String> answers = new ArrayList<>();
-    String[] arr;
-    boolean[] visited;
-    StringBuilder sb = new StringBuilder();
-    public String[] solution(String[][] tickets) {
-        this.tickets = tickets;
-        arr = new String[tickets.length+1];
-        visited = new boolean[tickets.length];
-        arr[0] = "ICN";
-        dfs(tickets.length,tickets.length+1,1, "ICN");
-        Collections.sort(answers);
-//        for(String s: answers) {
-//            System.out.println(s);
-//        }
-        return answers.get(0).split(" ");
-    }
-    void dfs(int N, int M, int depth, String start) {
-        if(depth == M) {
-//            System.out.println("도달하긴 함");
-            for(String s: arr) {
-                sb.append(s).append(" ");
-            }
-//            System.out.println(sb);
-            answers.add(sb.toString());
-            sb.setLength(0);
-            return;
-        }
-        for(int i = 0; i < N;i++) {
-            if(!visited[i] && tickets[i][0].equals(start)) {
-//                System.out.println(tickets[i][1] + " 방문");
-                visited[i] = true;
-                arr[depth] = tickets[i][1];
-                dfs(N,M,depth+1, tickets[i][1]);
-                visited[i] = false;
-            }
-        }
-    }
+
+	// key: 출발지, value: 도착지 리스트
+	Map<String, List<String>> map = new HashMap<>();
+	Map<String, Map<String, Integer>> checked = new HashMap<>(); // 특정 경로 이미 썼는지 체크. 다익스트라처럼
+
+	StringBuilder sb = new StringBuilder();
+	int CNT;
+	String[] arr;
+	List<String> list = new ArrayList<>();
+
+	public String[] solution(String[][] tickets) {
+		CNT = tickets.length + 1;
+		arr = new String[tickets.length + 1];
+
+		// map 채우기
+		for (String[] path : tickets) {
+			map.putIfAbsent(path[0], new ArrayList<>());
+			map.putIfAbsent(path[1], new ArrayList<>());
+			map.get(path[0]).add(path[1]);
+			checked.putIfAbsent(path[0], new HashMap<>());
+			checked.get(path[0]).put(path[1], checked.get(path[0]).getOrDefault(path[1], 0) + 1);
+		}
+
+		arr[0] = "ICN";
+		dfs("ICN", 1);
+
+		Collections.sort(list);
+		String[] result = new String[tickets.length + 1];
+		int idx = 0;
+		for (int i = 0; i + 3 <= list.get(0).length(); i += 3) {
+
+			result[idx++] = list.get(0).substring(i, i + 3);
+		}
+		return result;
+	}
+
+	void dfs(String cur, int cnt) {
+		if (cnt == CNT) {
+			sb.setLength(0);
+			for (String s : arr)
+				sb.append(s);
+			list.add(sb.toString());
+		}
+		for (String next : map.get(cur)) {
+			if (map.get(cur).size() == 0)
+				continue;
+			if (checked.get(cur).get(next) == 0)
+				continue;
+			checked.get(cur).put(next, checked.get(cur).get(next) - 1);
+			arr[cnt] = next;
+			dfs(next, cnt + 1);
+			checked.get(cur).put(next, checked.get(cur).get(next) + 1);
+		}
+	}
 }
