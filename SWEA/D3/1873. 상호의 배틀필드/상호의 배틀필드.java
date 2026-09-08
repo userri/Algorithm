@@ -19,6 +19,7 @@ class Solution {
 	// 상하좌우
 	static int[] drow = { -1, 1, 0, 0 };
 	static int[] dcol = { 0, 0, -1, 1 };
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String args[]) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -55,14 +56,15 @@ class Solution {
 
 			tank(stRow, stCol);
 
-			System.out.print("#" + test_case + " ");
+			sb.append("#").append(test_case).append(" ");
 			for (char[] line : map) {
 				for (char c : line) {
-					System.out.print(c);
+					sb.append(c);
 				}
-				System.out.println();
+				sb.append("\n");
 			}
 		}
+		System.out.println(sb);
 	}
 
 	static void tank(int stRow, int stCol) {
