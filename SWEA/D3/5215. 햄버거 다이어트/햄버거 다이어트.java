@@ -1,46 +1,36 @@
-
-// 냅색
-// dp: 결과를 얻기 위한 최소한의 정보: 조합 말고, 제한된 칼로리 안에서 최대점수
-
 import java.util.*;
 import java.io.*;
-class Solution {
+public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedReader br =  new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
-        int T = Integer.parseInt(br.readLine());
-
-        for(int test_case = 1; test_case <= T; test_case++) {
-            // N, L
+		int T;
+		T=Integer.parseInt(br.readLine());
+		for(int test_case = 1; test_case <= T; test_case++)
+		{
             st = new StringTokenizer(br.readLine());
             int N = Integer.parseInt(st.nextToken());
             int L = Integer.parseInt(st.nextToken());
-            int[][] foods = new int[N][2]; // 0에는 점수, 1에는 칼로리
-            
-            // N개의 줄 - T, K
-            for(int i = 0; i < N ;i++) {
-                st = new StringTokenizer(br.readLine());
-                int t = Integer.parseInt(st.nextToken());
-                int k = Integer.parseInt(st.nextToken());
-                foods[i][0] = t;
-                foods[i][1] = k;
-            }
+            int[] dp = new int[L+1];
 
-            // i번째 칼로리에서 최대 선호도를 저장 -> dp[L]을 정답으로 제출
-            int[] dp = new int[10001];
+            // 선호도, 칼로리 저장
+            int[][] food = new int[N][2];
+            for(int i = 0; i < N; i++) {
+                st = new StringTokenizer(br.readLine());
+                food[i][0] = Integer.parseInt(st.nextToken());
+                food[i][1] = Integer.parseInt(st.nextToken());
+            }
 
             for(int i = 0; i < N; i++) {
-                int taste = foods[i][0];
-                int cal = foods[i][1];
-                // 제한칼로리(L) 범위를 제대로 안보고 배열도 초기화 1000으로 하고 이것도 1000부터 시작하게 해서 계속 틀림
-                for(int w = L; w-cal >= 0; w--) {
-                    dp[w] = Math.max(dp[w], dp[w-cal] + taste);
+                int fav = food[i][0];
+                int cal = food[i][1];
+                for(int j = L; j-cal >= 0; j--) {
+                    // 역방향 탐색: 동일한 재료가 중복 적용되는 것을 방지 (0/1 배낭 문제의 핵심)
+                    // dp[j - cal] 값이 현재 재료로 갱신되기 전에 참조하여, 재료당 1회만 조합에 사용하도록 보장
+                    dp[j] = Math.max(dp[j], dp[j-cal] + fav);
                 }
             }
-            System.out.println("#"+test_case+" "+dp[L]);
-
-            
-            
-        }
-    }
+            System.out.println("#" + test_case + " " + dp[L]);
+		}
+	}
 }
