@@ -26,6 +26,7 @@ class Solution {
 	static int[] inyoung = new int[9];
 	static boolean[] isSelected = new boolean[9];
 	static int gyuWin, gyuLose;
+	static StringBuilder sb = new StringBuilder();
 
 	public static void main(String args[]) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -47,35 +48,35 @@ class Solution {
 				}
 				inyoung[inIdx++] = i;
 			}
-			// System.out.println(Arrays.toString(gyu));
-			// System.out.println(Arrays.toString(inyoung));
-
 			gyuWin = 0;
 			gyuLose = 0;
 			permutation(0, 0, 0);
 
-			System.out.println("#" + test_case + " " + gyuWin + " " + gyuLose);
+			sb.append("#").append(test_case).append(" ").append(gyuWin).append(" ").append(gyuLose).append("\n");
 		}
+		System.out.println(sb);
 	}
 
 	// 인영카드에서 검사한 개수
 	static void permutation(int cnt, int gyuSum, int inSum) {
 		if (cnt == 9) {
-			if(gyuSum > inSum) {
+			if (gyuSum > inSum)
 				gyuWin++;
-			}
-			else if(gyuSum < inSum) {
+			else if (gyuSum < inSum)
 				gyuLose++;
-			}
+
 			return;
 		}
 		// cnt번째 라운드에서 인영의 i번째 카드를 포함시킴
-		for(int i = 0; i < 9; i++) {
-			if(isSelected[i]) continue;
+		for (int i = 0; i < 9; i++) {
+			if (isSelected[i])
+				continue;
 			isSelected[i] = true;
 			int sumDiff = gyu[cnt] + inyoung[i];
-			if(gyu[cnt] < inyoung[i]) permutation(cnt+1, gyuSum, inSum + sumDiff);
-			if(gyu[cnt] > inyoung[i]) permutation(cnt+1, gyuSum+ sumDiff, inSum);
+			if (gyu[cnt] < inyoung[i])
+				permutation(cnt + 1, gyuSum, inSum + sumDiff);
+			if (gyu[cnt] > inyoung[i])
+				permutation(cnt + 1, gyuSum + sumDiff, inSum);
 			isSelected[i] = false;
 		}
 	}
