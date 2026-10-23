@@ -9,7 +9,6 @@ import java.io.*;
 class Solution {
 	static int N, M, ANSWER;
 	static int[][] city;
-	static List<int[]> homes;
 	// 상하좌우
 	static int[] dr = { -1, 1, 0, 0 };
 	static int[] dc = { 0, 0, -1, 1 };
@@ -26,15 +25,11 @@ class Solution {
 			N = Integer.parseInt(st.nextToken());
 			M = Integer.parseInt(st.nextToken());
 			city = new int[N][N];
-			homes = new ArrayList<>(); // 각 집의 좌표 저장
 
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine());
 				for (int j = 0; j < N; j++) {
 					city[i][j] = Integer.parseInt(st.nextToken());
-					if (city[i][j] == 1) {
-						homes.add(new int[] { i, j });
-					}
 				}
 			}
 			for (int i = 0; i < N; i++) {
