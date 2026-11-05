@@ -1,57 +1,37 @@
-
 import java.util.*;
 class Solution {
     public int[] solution(int e, int[] starts) {
-        int[] answer = new int[starts.length];
+        // 약수 계수 계산
+        int[] countArr = new int[e + 1];
         
-        /*
-        e부터 시작하여 1까지 최대 약수의 개수를 저장함
-        [0]: 최대 약수의 개수
-        [1]: 최대 약수의 위치
-        */
-        int[][] store = new int[e + 1][2];
-        store[e][0] = primeCount(e);
-        store[e][1] = e;
-        for(int i = e-1; i >=1; i--) {
-            int cnt = primeCount(i);
-            
-            // 최대 약수 갱신
-            if(cnt >= store[i+1][0]) {
-                store[i][0] = cnt;
-                store[i][1] = i;
+        // i의 배수마다 약수 하나 추가
+        for(int i = 1; i <= e; i++) {
+            for(int j = i; j <= e; j += i) {
+                countArr[j]++;
+            }
+        }
+        
+        // 뒤에서부터 i ~ e 중 약수가 가장 많은 수 저장
+        // best[i] = i 이상 e 이하에서 약수 개수가 가장 많은 수
+        int[] best = new int[e + 1];
+        best[e] = e; // 구간 [e~e]는 e하나뿐
+        
+        for(int i = e - 1; i >= 1; i--) {
+            if(countArr[i] >= countArr[best[i + 1]]) {
+                best[i] = i;
             } else {
-                store[i][0] = store[i+1][0];
-                store[i][1] = store[i+1][1];
+                best[i] = best[i + 1]; // 뒤쪽 1등을 그대로 물려받음
             }
         }
+        // 시간복잡도: O(e)
         
+        // 각 쿼리는 미리 구한 값을 조회만
+        int[] answer = new int[starts.length];
         for(int i = 0; i < starts.length; i++) {
-            int star = starts[i];
-            answer[i] = store[star][1];
+            answer[i] = best[starts[i]];
         }
+        
         return answer;
-    }
-    
-    // 소수의 개수
-    private static int primeCount(int n) {
-        Map<Integer, Integer> primes = new HashMap<>();
         
-        for(int i = 2; i <= Math.sqrt(n); i++) {
-            while(n % i == 0) {
-                primes.put(i, primes.getOrDefault(i, 0) + 1);
-                n /= i;
-            }
-        }
-        
-        if(n != 1) {
-            primes.put(n, primes.getOrDefault(n, 0) + 1);
-        }
-        
-        int count = 1;
-        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(primes.entrySet());
-        for(Map.Entry<Integer, Integer> entry: list) {
-            count *= (entry.getValue() + 1);
-        }
-        return count;
     }
 }
