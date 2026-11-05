@@ -1,4 +1,3 @@
-
 class Solution {
     public String solution(String p) {
         if(check(p)) return p;
@@ -35,13 +34,12 @@ class Solution {
         
         if(check(u)) return u + dfs(v);
         else {
-            StringBuilder sb = new StringBuilder();
-            sb.append("(").append(dfs(v)).append(")");
+            String tmp = "(" + dfs(v) + ")";
             u = u.substring(1, u.length() - 1);
             u = u.replace("(", ".");
             u = u.replace(")", "(");
             u = u.replace(".", ")");
-            return sb.append(u).toString();
+            return tmp + u;
         }
     }
 }
