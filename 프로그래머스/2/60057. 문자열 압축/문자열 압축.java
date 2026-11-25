@@ -4,7 +4,7 @@ class Solution {
     public int solution(String s) {
         this.s = s;
         StringBuilder sb = new StringBuilder();
-        List<String> answers = new ArrayList<>();
+        int answer = 1000;
         
         
         for(int i = 1; i <= s.length(); i++) {
@@ -35,11 +35,9 @@ class Solution {
                 }
             }
             sb.append(s.substring(lastIdx));
-            answers.add(sb.toString());
-            // System.out.println(sb.toString());
+            answer = Math.min(answer, sb.length());
         }
-        answers.sort( (a,b) -> a.length() - b.length());
         
-        return answers.get(0).length();
+        return answer;
     }
 }
